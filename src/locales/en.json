@@ -1,0 +1,19 @@
+{
+  "message": "Hello!",
+  "greeting": "Welcome to my website.",
+  "staff": "staff",
+  "$vuetify": {
+    "dataFooter":  {
+      "showFirstLastPage": true,
+      "firstIcon": "mdi-arrow-collapse-left",
+      "lastIcon": "mdi-arrow-collapse-right",
+      "prevIcon": "mdi-minus",
+      "nextIcon": "mdi-plus",
+      "itemsPerPageText":"products per page",
+      "pageText": "huu"
+
+    },
+    "noDataText": "no data "
+  }
+
+}

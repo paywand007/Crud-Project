@@ -1,0 +1,119 @@
+{
+  "posts": [
+    {
+      "id": 60,
+      "title": "zzz zzz",
+      "date": "2023-07-13T11:38:22.419Z",
+      "type": "Scrum Master",
+      "status": true
+    },
+    {
+      "id": 15,
+      "title": "nnnnnn nnnnn",
+      "date": "2023-07-13T12:01:03.149Z",
+      "type": "Android",
+      "status": false,
+      "description": "nnnnnnnn"
+    },
+    {
+      "id": 43,
+      "title": "asd aaaaaa",
+      "date": "2023-07-13T12:02:18.438Z",
+      "type": "UX UI ",
+      "status": true
+    },
+    {
+      "id": 61,
+      "title": "lllll lllll",
+      "date": "2023-07-13T12:08:35.939Z",
+      "type": "UX UI ",
+      "status": true,
+      "description": "oooooooooooo"
+    },
+    {
+      "id": 6,
+      "title": "fff fff",
+      "date": "2023-07-14T15:42:42.005Z",
+      "type": "Frontend",
+      "status": true,
+      "description": "rrrrr"
+    },
+    {
+      "id": 66,
+      "title": "hhh hhhh",
+      "date": "2023-07-14T19:41:34.904Z",
+      "type": "UX UI ",
+      "status": true,
+      "description": "uuuuuuuu"
+    },
+    {
+      "id": 76,
+      "title": "asda asda",
+      "date": "2023-07-15T14:00:35.661Z",
+      "type": "Frontend",
+      "status": true
+    },
+    {
+      "id": 50,
+      "title": "yusf suliman",
+      "date": "2023-07-16T12:23:07.978Z",
+      "type": "Frontend",
+      "status": true
+    }
+  ],
+  "team": [
+    {
+      "id": 66,
+      "img": "https://images.pexels.com/photos/1287142/pexels-photo-1287142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "Scrum Master"
+    },
+    {
+      "id": 7,
+      "img": "https://images.pexels.com/photos/5359974/pexels-photo-5359974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "UX UI "
+    },
+    {
+      "id": 5,
+      "img": "https://images.pexels.com/photos/3985411/pexels-photo-3985411.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "QA "
+    },
+    {
+      "id": 56,
+      "img": "https://images.pexels.com/photos/5359974/pexels-photo-5359974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "Frontend"
+    },
+    {
+      "id": 41,
+      "img": "https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "type": "Scrum Master"
+    },
+    {
+      "id": 64,
+      "img": "https://images.pexels.com/photos/5359974/pexels-photo-5359974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "Android"
+    },
+    {
+      "id": 34,
+      "img": "https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "type": "UX UI "
+    },
+    {
+      "id": 77,
+      "img": "https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "type": "Scrum Master"
+    },
+    {
+      "id": 97,
+      "img": "https://images.pexels.com/photos/3985411/pexels-photo-3985411.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "Frontend"
+    },
+    {
+      "id": 28,
+      "img": "https://images.pexels.com/photos/1242764/pexels-photo-1242764.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "type": "QA "
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

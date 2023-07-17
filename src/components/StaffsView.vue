@@ -1,0 +1,61 @@
+<script setup lang="ts">
+import { useRoute } from "vue-router";
+import apiData from "./apiData.ts";
+import { onMounted, ref } from "vue";
+
+const route = useRoute();
+const { id } = route.params;
+const data = ref([]);
+onMounted(async () => {
+  await apiData.get(`/posts/${id}`).then((res) => (data.value = res.data));
+  console.log(data.value);
+});
+</script>
+
+<template>
+  <p>{{ data }}</p>
+
+  <v-container>
+    <v-toolbar class="bg-white ma-5"
+      ><h1 class="text-h3 ml-5">staff</h1>
+      <v-spacer></v-spacer>
+      <v-spacer></v-spacer>
+      <v-switch
+        v-model="data.status"
+        :readonly="true"
+        label="Active"
+      ></v-switch>
+    </v-toolbar>
+  </v-container>
+  <v-container class="pa-8 mt-10">
+    <v-row>
+      <v-col cols="12" md="8">
+        <v-text-field :readonly="true" v-model="data.title"></v-text-field>
+      </v-col>
+
+      <v-col cols="12" md="4">
+        <v-select :readonly="data.type" v-model="data.type"></v-select>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12" md="4">
+        <v-text-field
+          label=" Date"
+          :readonly="data.date"
+          v-model="data.date"
+        ></v-text-field>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12" md="12">
+        <v-textarea
+          v-model="data.description"
+          :readonly="data.description"
+          label="Description"
+        ></v-textarea
+      ></v-col>
+    </v-row>
+  </v-container>
+</template>
+
+<style scoped></style>
