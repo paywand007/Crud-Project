@@ -1,19 +1,48 @@
 {
   "message": "Hello!",
   "greeting": "Welcome to my website.",
-  "staff": "staff",
+  "active": "Active",
+  "staff": "Staff",
+  "team": "Team",
+  "teamType": "Team Type",
+  "addStaff": "Add New Staff",
+  "addTeam":  "Add New Team ",
+  "firstName": "Full Name ",
+  "description": "Description",
+  "status": "status",
+  "date": "Date",
+  "search": "Search here",
+  "sueDelete": "Are you sure you want to delete this item?",
+  "actions": "Actions",
+  "langE": "English",
+  "langK": "Kurdish",
+  "yes": "Yes",
+  "no": "No",
+  "10": "10",
+  "25": "25",
+  "50": "50",
+  "100":"100",
   "$vuetify": {
+
     "dataFooter":  {
       "showFirstLastPage": true,
       "firstIcon": "mdi-arrow-collapse-left",
       "lastIcon": "mdi-arrow-collapse-right",
       "prevIcon": "mdi-minus",
       "nextIcon": "mdi-plus",
-      "itemsPerPageText":"products per page",
-      "pageText": "huu"
+      "itemsPerPageText":"Staff Per Page",
+      "pageText": " Page Number  ",
+      "itemsPerPageAll": " Staff Per Page",
+      "firstPage": "First Page",
+      "prevPage": "Previous Page",
+      "nextPage": "Next Page",
+      "lastPage": "Last Page"
 
     },
-    "noDataText": "no data "
+    "noDataText": "no data ",
+    "input":{
+      "clear": "clear filed"
+    }
   }
 
 }

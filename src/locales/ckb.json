@@ -1,19 +1,51 @@
 {
   "message": "Hello!",
-  "staff": "ستاف",
+  "staff": "  کارمەندەکان",
+  "team": "تیمەکان",
+  "teamType": "جۆری تیم",
+  "active": "ئەکتیڤ",
+  "addStaff": "زیادکردنی کارمەند",
+  "addTeam": "زیادکردنی تیم ",
+  "firstName": "ناو ",
   "greeting": "Welcome to my website.",
+  "description": "وەسف",
+  "status": "دۆخ",
+  "search": "لێرە بگەڕێ",
+  "sueDelete": "دڵنیای دەتەوێت ئەم داتایە رەشبکەیتەوە ؟",
+  "date": "بەروار",
+  "actions": "کردارەکان",
+  "yes": "بەڵێ",
+  "no": "نەخێر",
+  "langE": "ئینگلیزی",
+  "langK": "کوردی",
+  "10": "10",
+  "25": "25",
+  "50": "50",
+  "100": "100",
   "$vuetify": {
+
     "dataFooter":  {
       "showFirstLastPage": true,
       "firstIcon": "mdi-arrow-collapse-left",
       "lastIcon": "mdi-arrow-collapse-right",
       "prevIcon": "mdi-minus",
       "nextIcon": "mdi-plus",
-      "itemsPerPageText":"products per page",
-      "pageText": "z"
+      "itemsPerPageText":"ژمارەی ستاف بە پێی لاپەرە",
+      "pageText": "ژمارەی پەڕەکان",
+      "itemsPerPageAll": "ژمارەی ستاف بە پێی لاپەرە",
+      "firstPage": "پەڕی یەکەم",
+      "prevPage": "پەڕی پێشوو",
+      "nextPage": "پەڕی دواتر",
+      "lastPage": "کۆتا پەڕ"
 
     },
-    "noDataText": "nia "
+    "noDataText": "هیج داتایەک نیە ",
+    "input":{
+      "clear": "فیلدەکە پاکبکەوە"
+    },
+    "validation": {
+
+    }
   }
 
 }
