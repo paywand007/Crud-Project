@@ -5,9 +5,9 @@ import Team from "../../components/Team.vue";
 import StaffsView from "../../components/StaffsView.vue";
 
 const routes = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHashHistory(import.meta.env.BASE_UR),
   routes: [
-    { path: "/staff", component: ShowData, name: "showdata" },
+    { path: "/:id?", component: ShowData, name: "showdata" },
     {
       path: "/addEdit/:id?",
       name: "edit",

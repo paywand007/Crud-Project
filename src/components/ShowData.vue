@@ -2,11 +2,15 @@
   <v-data-table :headers="headers" :items="data" :search="searchTerm">
     <template v-slot:top>
       <v-toolbar class="bg-white my-5">
-        <v-toolbar-title><h1 class="pa-4">Staff</h1></v-toolbar-title>
+        <v-toolbar-title
+          ><p class="text-h3 font-weight-bold">
+            {{ $t("staff") }}
+          </p></v-toolbar-title
+        >
 
         <v-text-field
           v-model="searchRes"
-          label="Search here"
+          :label="t('search')"
           class="mt-5 bg-white"
           clearable
           @keyup.enter="searchFn"
@@ -14,21 +18,17 @@
         </v-text-field>
 
         <v-spacer></v-spacer>
-        <RouterLink to="/addEdit">
-          <v-btn
-            color="primary"
-            dark
-            class="mx-2 ml-2 text-h5"
-            @click="() => console.log('click')"
-          >
-            Add New Staff
-          </v-btn></RouterLink
-        >
+        <v-btn color="pink-darken-4" variant="elevated" size="large" class="">
+          <RouterLink to="/addEdit" class="text-decoration-none text-white">
+            {{ $t("addStaff") }}
+            <v-icon> mdi-account-plus</v-icon>
+          </RouterLink>
+        </v-btn>
       </v-toolbar>
     </template>
     <template v-slot:item="{ item }">
       <tr>
-        <td>{{ item.selectable.title }}</td>
+        <td>{{ item.selectable.firstName }} {{ item.selectable.lastName }}</td>
         <td>{{ item.selectable.type }}</td>
         <td>{{ item.selectable.description }}</td>
         <td>{{ item.selectable.date }}</td>
@@ -47,37 +47,40 @@
                 },
               })
             "
+            color="blue"
             >mdi-pencil</v-icon
           >
-          <span @click="() => (dialog = !dialog)">
-            <v-dialog v-model="dialog" max-width="500px">
+          <span @click="dialogDelete(item.selectable.id)">
+            <v-icon density="compact" style="cursor: pointer" color="red">
+              mdi-delete
+            </v-icon>
+
+            <v-dialog v-model="dialog" max-width="500px" persistent>
               <v-card>
-                <v-card-title class="text-h5"
-                  >Are you sure you want to delete this item?</v-card-title
-                >
+                <v-card-title class="text-h5">{{
+                  t("sueDelete")
+                }}</v-card-title>
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn
-                    color="blue-darken-1"
+                    color="pink-darken-4"
                     variant="text"
-                    @click="() => (dialog = !dialog)"
-                    >Cancel</v-btn
+                    @click="dialog = false"
+                    >{{ t("no") }}</v-btn
                   >
                   <v-btn
-                    @click="deleteData(item.selectable.id)"
-                    color="blue-darken-1"
+                    color="green-darken-4"
                     variant="text"
-                    >OK</v-btn
+                    @click="deleteData()"
+                    >{{ t("yes") }}</v-btn
                   >
                   <v-spacer></v-spacer>
                 </v-card-actions>
-              </v-card> </v-dialog
-            ><v-icon density="compact" style="cursor: pointer">
-              mdi-delete
-            </v-icon></span
-          >
+              </v-card>
+            </v-dialog>
+          </span>
 
-          <v-btn
+          <v-icon
             @click="
               router.push({
                 name: 'preview',
@@ -86,7 +89,8 @@
                 },
               })
             "
-            ><v-icon>mdi-eye</v-icon></v-btn
+            color="green"
+            >mdi-eye</v-icon
           >
         </td>
       </tr>
@@ -95,12 +99,15 @@
 </template>
 <script lang="ts" setup>
 import apiData from "./apiData.ts";
-import { RouterLink, useRouter } from "vue-router";
-const router = useRouter();
+import { RouterLink, useRouter, useRoute } from "vue-router";
 import { onMounted, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
+const router = useRouter();
 
+const route = useRoute();
+const { locale, t } = useI18n();
 const dialog = ref(false);
-
+const { id } = route.params.id;
 const searchTerm = ref("");
 
 const searchRes = ref(" ");
@@ -113,16 +120,20 @@ watch(searchTerm, () => {
 });
 const searchFn = () => {
   searchTerm.value = searchRes.value;
-  router.push({ path: "/staff", query: { search: searchRes.value } });
+  router.push({ path: "/ ", query: { search: searchRes.value } });
 };
 
+const dialogDelete = (idItem) => {
+  dialog.value = true;
+  router.push(`/${idItem}`);
+};
 const headers = ref([
-  { title: "Full Name", align: "start", sortable: true, key: "title" },
-  { title: "Team type", key: "type", sortable: false },
-  { title: "Description", key: "description", sortable: false },
-  { title: "Join Date", key: "date", sortable: false },
-  { title: "Status", key: "status", sortable: false },
-  { title: "Actions", key: "actions", sortable: false },
+  { title: t("firstName"), align: "start", sortable: true, key: "title" },
+  { title: t("teamType"), key: "type", sortable: false },
+  { title: t("description"), key: "description", sortable: false },
+  { title: t("date"), key: "date", sortable: false },
+  { title: t("status"), key: "status", sortable: false },
+  { title: t("actions"), key: "actions", sortable: false },
 ]);
 const data = ref([]);
 const fetchDta = async () => {
@@ -134,12 +145,28 @@ const fetchDta = async () => {
     })
     .then((res) => (data.value = res.data));
 };
-const deleteData = async (id) => {
-  await apiData.delete(`/posts/${id}`).then(() => {
-    fetchDta();
-    dialog.value = !dialog.value;
-    console.log(`Deleted post with ID ${id}`);
-  });
+const deleteData = async () => {
+  try {
+    await apiData
+      .delete(`/posts/${route.params.id}`)
+      .then(() => {
+        dialog.value = false;
+        console.log(`Deleted post with ID ${route.params.id}`);
+        router.push("/");
+        fetchDta();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  } catch (err) {
+    console.log(err);
+  }
+
+  // await apiData.delete(`/posts/${idD}`).then(() => {
+  //   dialog.value = !dialog.value;
+  //   console.log(`Deleted post with ID ${idD}`);
+  //   fetchDta();
+  // });
 };
 onMounted(() => {
   fetchDta();

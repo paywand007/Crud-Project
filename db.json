@@ -1,87 +1,43 @@
 {
   "posts": [
     {
-      "id": 60,
-      "title": "zzz zzz",
-      "date": "2023-07-13T11:38:22.419Z",
-      "type": "Scrum Master",
-      "status": true
-    },
-    {
-      "id": 15,
-      "title": "nnnnnn nnnnn",
-      "date": "2023-07-13T12:01:03.149Z",
-      "type": "Android",
-      "status": false,
-      "description": "nnnnnnnn"
-    },
-    {
-      "id": 43,
-      "title": "asd aaaaaa",
-      "date": "2023-07-13T12:02:18.438Z",
-      "type": "UX UI ",
-      "status": true
-    },
-    {
-      "id": 61,
-      "title": "lllll lllll",
-      "date": "2023-07-13T12:08:35.939Z",
-      "type": "UX UI ",
+      "id": 11,
+      "firstName": "Eve",
+      "lastName": "Marks",
+      "date": "2023-07-18T13:05:25.283Z",
+      "type": "QA ",
       "status": true,
-      "description": "oooooooooooo"
+      "description": "Minus aut est deseru"
     },
     {
-      "id": 6,
-      "title": "fff fff",
-      "date": "2023-07-14T15:42:42.005Z",
-      "type": "Frontend",
+      "id": 96,
+      "firstName": "Lenore",
+      "lastName": "Spencer",
+      "date": "2023-07-18T09:19:38.662Z",
+      "type": "Backend",
       "status": true,
-      "description": "rrrrr"
+      "description": "Id est est tempor q"
     },
     {
-      "id": 66,
-      "title": "hhh hhhh",
-      "date": "2023-07-14T19:41:34.904Z",
+      "id": 69,
+      "firstName": "Kellie",
+      "lastName": "Mcclain",
+      "date": "2023-07-18T09:20:39.082Z",
+      "type": "Backend",
+      "status": true,
+      "description": "Beatae possimus aut"
+    },
+    {
+      "id": 17,
+      "firstName": "Judith",
+      "lastName": "Lee",
+      "date": "2023-07-18T09:21:06.897Z",
       "type": "UX UI ",
       "status": true,
-      "description": "uuuuuuuu"
-    },
-    {
-      "id": 76,
-      "title": "asda asda",
-      "date": "2023-07-15T14:00:35.661Z",
-      "type": "Frontend",
-      "status": true
-    },
-    {
-      "id": 50,
-      "title": "yusf suliman",
-      "date": "2023-07-16T12:23:07.978Z",
-      "type": "Frontend",
-      "status": true
+      "description": "Ullamco vero consequ"
     }
   ],
   "team": [
-    {
-      "id": 66,
-      "img": "https://images.pexels.com/photos/1287142/pexels-photo-1287142.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "Scrum Master"
-    },
-    {
-      "id": 7,
-      "img": "https://images.pexels.com/photos/5359974/pexels-photo-5359974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "UX UI "
-    },
-    {
-      "id": 5,
-      "img": "https://images.pexels.com/photos/3985411/pexels-photo-3985411.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "QA "
-    },
-    {
-      "id": 56,
-      "img": "https://images.pexels.com/photos/5359974/pexels-photo-5359974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "Frontend"
-    },
     {
       "id": 41,
       "img": "https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -89,28 +45,23 @@
     },
     {
       "id": 64,
-      "img": "https://images.pexels.com/photos/5359974/pexels-photo-5359974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "Android"
-    },
-    {
-      "id": 34,
-      "img": "https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      "type": "UX UI "
-    },
-    {
-      "id": 77,
-      "img": "https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      "type": "Scrum Master"
-    },
-    {
-      "id": 97,
-      "img": "https://images.pexels.com/photos/3985411/pexels-photo-3985411.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "img": "https://images.pexels.com/photos/2371936/pexels-photo-2371936.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
       "type": "Frontend"
     },
     {
-      "id": 28,
-      "img": "https://images.pexels.com/photos/1242764/pexels-photo-1242764.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      "type": "QA "
+      "id": 78,
+      "img": "https://images.pexels.com/photos/35857/amazing-beautiful-breathtaking-clouds.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "Backend"
+    },
+    {
+      "id": 8,
+      "img": "https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "Android"
+    },
+    {
+      "id": 100,
+      "img": "https://images.pexels.com/photos/1411995/pexels-photo-1411995.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "Frontend"
     }
   ],
   "profile": {

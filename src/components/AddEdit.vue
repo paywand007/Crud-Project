@@ -3,19 +3,21 @@ import apiData from "./apiData.ts";
 import { onMounted, ref } from "vue";
 import { useForm, useField } from "vee-validate";
 import { useRoute, useRouter } from "vue-router";
-import { da } from "vuetify/locale";
 
+import { useI18n } from "vue-i18n";
+
+const { locale, t } = useI18n();
 const route = useRoute();
 const { id } = route.params;
 const { handleSubmit, setValues } = useForm();
 const router = useRouter();
 const data = ref({});
 const { value: fName, errorMessage: ereMsgName } = useField<string>(
-  "name",
+  "fName",
   "required",
 );
 const { value: lName, errorMessage: ereMsglName } = useField<string>(
-  "lname",
+  "lName",
   "required",
 );
 const { value: typeData, errorMessage: ereMsgType } = useField<string>(
@@ -23,54 +25,66 @@ const { value: typeData, errorMessage: ereMsgType } = useField<string>(
   "required",
 );
 
-const { value: status, errorMessage: ereMsgActive } = useField<boolean>(
-  "status",
-  "required",
-);
+const { value: status, errorMessage: ereMsgActive } =
+  useField<boolean>("status");
 
 const { value: description, errorMessage: ereMsgDescription } =
   useField<string>("description");
-// const { value: date, errorMessage: ereMsgDate } = useField<string>("date");
-onMounted(async () => {
+const { value: date, errorMessage: ereMsgDate } = useField<string>("date");
+const fetchData = async () => {
   await apiData.get(`/posts/${id}`).then((res) => {
     data.value = res.data;
-    console.log(data.value);
-    setValues(data.value);
-    console.log(
-      setValues({
-        email: "example@gmail.com",
-        password: "p@a$$W0rD",
-      }),
-    );
+
+    console.log("paywand ", data);
+    setValues({
+      status: data.value.status,
+      fName: data.value.firstName,
+      lName: data.value.lastName,
+      typeData: data.value.type,
+      description: data.value.description,
+      date: data.value.date,
+    });
   });
+};
+// const { value: date, errorMessage: ereMsgDate } = useField<string>("date");
+onMounted(() => {
+  fetchData();
+  console.log(data.value);
 });
 
 const addData = async () => {
   await apiData
     .post("/posts", {
       id: Math.floor(Math.random() * 101),
-      title: fName.value + " " + lName.value,
+      firstName: fName?.value,
+      lastName: lName?.value,
       date: new Date(),
       type: typeData.value,
       status: status.value,
       description: description.value,
     })
-    .then(() => {
+    .then((res) => {
+      fetchData();
+      data.value = res.data;
       router.back();
     });
 };
 
 const updateData = async () => {
   await apiData
-    .patch(`/posts/${parseInt(id)}`, {
-      title: fName.value + " " + lName.value,
+    .patch(`/posts/${parseInt(id as string)}`, {
+      firstName: fName?.value,
+      lastName: lName?.value,
       type: typeData.value,
       status: status.value,
+      date: new Date(),
       description: description.value,
     })
     .then((res) => {
+      fetchData();
       data.value = res.data;
       router.back();
+      fetchData();
     });
 };
 const submit = handleSubmit(() => {
@@ -80,34 +94,30 @@ const submit = handleSubmit(() => {
     addData();
   }
 });
+const cancel = () => {
+  router.back();
+};
 </script>
 
 <template>
   <v-form @submit.prevent="submit">
-    {{ data }}
     <v-container>
       <v-toolbar class="bg-white ma-5"
-        ><h1 class="text-h3 ml-5">staff</h1>
+        ><h1 class="text-h3 ml-5">{{ $t("staff") }}</h1>
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
+
         <v-switch
           v-model="status"
           :error-messages="ereMsgActive"
-          label="Is Active"
+          color="pink-darken-4"
         ></v-switch>
         {{ status }}</v-toolbar
       ></v-container
     >
     <v-container class="pa-8 mt-10">
-      <h2 class="ma-4">
-        Welecome Mrs or Mr
-        <span class="text-blue-darken-2 text-h3">{{ data.title }}</span>
-
-        please fill the text fileds to update your information
-      </h2>
       <v-row>
         <v-col cols="12" md="4">
-          {{ fName }}
           <v-text-field
             label="First name"
             v-model="fName"
@@ -126,7 +136,6 @@ const submit = handleSubmit(() => {
         <v-col cols="12" md="4">
           <v-select
             v-model="typeData"
-            :value="data.type"
             label="Select"
             :items="[
               'Frontend',
@@ -142,12 +151,21 @@ const submit = handleSubmit(() => {
       </v-row>
       <v-row>
         <v-col cols="12" md="4">
-          <v-text-field label=" Date" required></v-text-field>
+          <v-text-field
+            v-model="date"
+            :error-messages="ereMsgDate"
+            label=" Date"
+            required
+          ></v-text-field>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" md="12">
-          <v-textarea v-model="description" label="Description"></v-textarea
+          <v-textarea
+            v-model="description"
+            :error-messages="ereMsgDescription"
+            label="Description"
+          ></v-textarea
         ></v-col>
       </v-row>
       <v-row>
@@ -169,11 +187,11 @@ const submit = handleSubmit(() => {
             class=""
             >Save
           </v-btn>
-          <v-btn block rounded="xl" size="x-large" color="pink">Cancel</v-btn>
+          <v-btn block rounded="xl" size="x-large" color="pink" @click="cancel"
+            >Cancel</v-btn
+          >
         </v-col></v-row
       >
     </v-container>
   </v-form>
 </template>
-
-<style scoped></style>

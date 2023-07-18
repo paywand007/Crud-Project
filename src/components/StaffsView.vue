@@ -29,19 +29,42 @@ onMounted(async () => {
   </v-container>
   <v-container class="pa-8 mt-10">
     <v-row>
-      <v-col cols="12" md="8">
-        <v-text-field :readonly="true" v-model="data.title"></v-text-field>
+      <v-col cols="12" md="4">
+        <v-text-field
+          label="First name"
+          v-model="data.firstName"
+          :readonly="true"
+        ></v-text-field>
       </v-col>
 
       <v-col cols="12" md="4">
-        <v-select :readonly="data.type" v-model="data.type"></v-select>
+        <v-text-field
+          label="Last name"
+          v-model="data.lastName"
+          :readonly="true"
+        ></v-text-field>
+      </v-col>
+
+      <v-col cols="12" md="4">
+        <v-select
+          v-model="data.type"
+          :readonly="true"
+          :items="[
+            'Frontend',
+            'Backend',
+            'Android',
+            'QA ',
+            'Scrum Master',
+            'UX UI ',
+          ]"
+        ></v-select>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12" md="4">
         <v-text-field
           label=" Date"
-          :readonly="data.date"
+          :readonly="true"
           v-model="data.date"
         ></v-text-field>
       </v-col>
@@ -50,7 +73,7 @@ onMounted(async () => {
       <v-col cols="12" md="12">
         <v-textarea
           v-model="data.description"
-          :readonly="data.description"
+          :readonly="true"
           label="Description"
         ></v-textarea
       ></v-col>
