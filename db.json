@@ -62,6 +62,15 @@
       "type": "Frontend",
       "status": true,
       "description": "Voluptatem ipsam do"
+    },
+    {
+      "id": 21,
+      "firstName": "Ignatius",
+      "lastName": "Barry",
+      "date": "24-Nov-2009",
+      "type": "Backend",
+      "status": true,
+      "description": "Reiciendis aut ex si"
     }
   ],
   "team": [
@@ -84,11 +93,6 @@
       "id": 8,
       "img": "https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
       "type": "Android"
-    },
-    {
-      "id": 100,
-      "img": "https://images.pexels.com/photos/1411995/pexels-photo-1411995.png?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "Frontend"
     }
   ],
   "profile": {
