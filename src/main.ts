@@ -4,5 +4,10 @@ import vuetify from "./plugins/vuetify";
 import "./plugins/veeValidate.ts";
 import routes from "./plugins/router";
 import i18n from "./i18n.ts";
+import { createPinia } from "pinia";
 
-createApp(App).use(routes).use(vuetify).use(i18n).mount("#app");
+const app = createApp(App);
+app.use(routes);
+app.use(createPinia());
+app.use(i18n);
+app.use(vuetify).mount("#app");

@@ -18,24 +18,19 @@
 
       <v-divider></v-divider>
 
-      <v-list density="compact" nav>
+      <v-list
+        density="compact"
+        :nav="true"
+        v-for="list in store.data"
+        :key="list.id"
+      >
         <v-list-item
-          prepend-icon="mdi-account-multiple"
-          to="/"
+          :prepend-icon="list.icon"
+          :to="list.route"
           color="pink-darken-4"
         >
           <h2>
-            {{ $t("staff") }}
-          </h2></v-list-item
-        >
-
-        <v-list-item
-          prepend-icon="mdi-account-multiple"
-          to="/team"
-          color="pink-darken-4"
-        >
-          <h2 class="h2">
-            {{ $t("team") }}
+            {{ t(list.name) }}
           </h2></v-list-item
         >
       </v-list>
@@ -45,7 +40,7 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer></v-spacer>
 
-      <v-menu open-on-hover>
+      <v-menu>
         <template v-slot:activator="{ props }">
           <v-btn color="black" v-bind="props">
             <v-icon size="45">mdi-web</v-icon></v-btn
@@ -69,13 +64,15 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import { useI18n } from "vue-i18n";
+import { useDataStore } from "./store/index.ts";
 
 const { locale, t } = useI18n();
 
 const drawer = ref(null);
+const store = useDataStore();
 
 const items = computed(() => [
   {
