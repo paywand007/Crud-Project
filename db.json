@@ -1,15 +1,6 @@
 {
   "posts": [
     {
-      "id": 11,
-      "firstName": "Eve",
-      "lastName": "Marks",
-      "date": "2023-07-18T13:05:25.283Z",
-      "type": "QA ",
-      "status": true,
-      "description": "Minus aut est deseru"
-    },
-    {
       "id": 96,
       "firstName": "Lenore",
       "lastName": "Spencer",
@@ -35,6 +26,42 @@
       "type": "UX UI ",
       "status": true,
       "description": "Ullamco vero consequ"
+    },
+    {
+      "id": 90,
+      "firstName": "pamo",
+      "lastName": "Weeks",
+      "date": "2023-07-18T20:07:58.880Z",
+      "type": "Backend",
+      "status": false,
+      "description": "Velit illum tenetur"
+    },
+    {
+      "id": 67,
+      "firstName": "Keiko",
+      "lastName": "Oneal",
+      "date": "2023-07-18T20:33:40.875Z",
+      "type": "Frontend",
+      "status": true,
+      "description": "Assumenda omnis natu"
+    },
+    {
+      "id": 83,
+      "firstName": "Riley",
+      "lastName": "Velasquez",
+      "date": "2023-07-18T20:34:09.803Z",
+      "type": "Frontend",
+      "status": true,
+      "description": "Cum eligendi quaerat"
+    },
+    {
+      "id": 100,
+      "firstName": "Eleanor",
+      "lastName": "Mckinney",
+      "date": "2023-07-18T20:36:12.910Z",
+      "type": "Frontend",
+      "status": true,
+      "description": "Voluptatem ipsam do"
     }
   ],
   "team": [
