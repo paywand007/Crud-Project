@@ -84,7 +84,7 @@
                 <span
                   ><v-icon @click="viewDialog(item.id)"> mdi-eye </v-icon></span
                 >
-                <span @click="dialogDelete">
+                <span @click="dialogDelete(item.id)">
                   <v-dialog
                     v-model="openDelete"
                     :persistent="true"

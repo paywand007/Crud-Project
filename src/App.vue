@@ -64,8 +64,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
-import { RouterLink, RouterView } from "vue-router";
+import { computed, ref } from "vue";
+import { RouterView } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useDataStore } from "./store/index.ts";
 
@@ -88,20 +88,4 @@ const items = computed(() => [
 ]);
 </script>
 
-<style scoped>
-.select {
-  width: 40px !important;
-}
-.custom-select {
-  width: 40px;
-  height: 40px;
-}
-.active {
-  color: #9a208c;
-}
-.h2 {
-  outline: none;
-  text-decoration: none;
-  text-decoration-color: #1a1a1a;
-}
-</style>
+<style scoped></style>

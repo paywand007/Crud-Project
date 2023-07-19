@@ -45,7 +45,7 @@ const fetchData = async () => {
     });
   });
 };
-
+// const { value: date, errorMessage: ereMsgDate } = useField<string>("date");
 onMounted(() => {
   fetchData();
 });
@@ -110,8 +110,10 @@ const cancel = () => {
           v-model="status"
           :error-messages="ereMsgActive"
           color="pink-darken-4"
-        ></v-switch> </v-toolbar
-    ></v-container>
+        ></v-switch>
+        {{ status }}</v-toolbar
+      ></v-container
+    >
     <v-container class="pa-8 mt-10">
       <v-row>
         <v-col cols="12" md="4">

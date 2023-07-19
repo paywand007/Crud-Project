@@ -157,11 +157,7 @@ const deleteData = async () => {
 onMounted(() => {
   fetchDta();
 });
-// const performSearch = () => {
-//   apiData
-//     .get(`/staff?q=${searchRes.value}`)
-//     .then((res) => (data.value = res.data));
-// };
+
 const performSearch = async () => {
   try {
     await apiData
