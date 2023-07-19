@@ -35,7 +35,6 @@ const fetchData = async () => {
   await apiData.get(`/posts/${id}`).then((res) => {
     data.value = res.data;
 
-    console.log("paywand ", data);
     setValues({
       status: data.value.status,
       fName: data.value.firstName,
@@ -46,10 +45,9 @@ const fetchData = async () => {
     });
   });
 };
-// const { value: date, errorMessage: ereMsgDate } = useField<string>("date");
+
 onMounted(() => {
   fetchData();
-  console.log(data.value);
 });
 
 const addData = async () => {
@@ -58,7 +56,7 @@ const addData = async () => {
       id: Math.floor(Math.random() * 101),
       firstName: fName?.value,
       lastName: lName?.value,
-      date: new Date(),
+      date: date.value,
       type: typeData.value,
       status: status.value,
       description: description.value,
@@ -77,7 +75,8 @@ const updateData = async () => {
       lastName: lName?.value,
       type: typeData.value,
       status: status.value,
-      date: new Date(),
+      date: date.value,
+
       description: description.value,
     })
     .then((res) => {
@@ -111,10 +110,8 @@ const cancel = () => {
           v-model="status"
           :error-messages="ereMsgActive"
           color="pink-darken-4"
-        ></v-switch>
-        {{ status }}</v-toolbar
-      ></v-container
-    >
+        ></v-switch> </v-toolbar
+    ></v-container>
     <v-container class="pa-8 mt-10">
       <v-row>
         <v-col cols="12" md="4">

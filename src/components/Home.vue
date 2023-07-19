@@ -17,14 +17,7 @@
         ></v-text-field>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <v-btn
-          color="primary"
-          dark
-          class="mb-2"
-          @click="() => console.log('click')"
-        >
-          Add New Staff
-        </v-btn>
+        <v-btn color="primary" dark class="mb-2"> Add New Staff </v-btn>
       </v-toolbar>
     </template>
     <template v-slot:item="{ item }">
@@ -142,7 +135,6 @@ const save = async () => {
     }.then((res) => (desserts.value = res.data)),
   );
   //desserts.value.push(editedItem.value);
-  console.log("add items");
 
   close();
 };
@@ -168,7 +160,6 @@ const add = async () => {
       author: "paaaaaaaaw",
     })
     .then((res) => (e.value = res.data));
-  console.log(e);
 };
 // Initialize the data on component creation
 onMounted(async () => {
@@ -178,6 +169,5 @@ onMounted(async () => {
   //   author: "code"
   // }).then(res=> desserts.value= res.data)
   await apiData.get("/posts").then((res) => (desserts.value = res.data));
-  console.log("++++", editedItem);
 });
 </script>

@@ -8,13 +8,10 @@ const { id } = route.params;
 const data = ref([]);
 onMounted(async () => {
   await apiData.get(`/posts/${id}`).then((res) => (data.value = res.data));
-  console.log(data.value);
 });
 </script>
 
 <template>
-  <p>{{ data }}</p>
-
   <v-container>
     <v-toolbar class="bg-white ma-5"
       ><h1 class="text-h3 ml-5">staff</h1>

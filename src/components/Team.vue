@@ -1,36 +1,37 @@
 <template>
-  <v-toolbar class="bg-white my-5">
-    <v-toolbar-title class="mt-5"
-      ><p class="text-h3 font-weight-bold">{{ t("team") }}</p></v-toolbar-title
-    >
+  <v-row class="mt-5">
+    <v-col cols="12" sm="3" md="3"
+      ><p class="text-h3 font-weight-bold">{{ t("team") }}</p>
+    </v-col>
+    <v-col cols="12" sm="4" md="4">
+      <v-text-field
+        v-model="search"
+        :label="t('search')"
+        class="bg-white"
+        clearable
+        @click:clear="refreshData"
+        style="background: white"
+        @keyup.enter="performSearch"
+      >
+      </v-text-field>
+    </v-col>
 
-    <v-text-field
-      v-model="search"
-      :label="t('search')"
-      class="mt-5 border-b-sm bg-white"
-      clearable
-      style="background: white"
-      @keyup.enter="performSearch"
-    >
-    </v-text-field>
-
-    <v-spacer></v-spacer>
-
-    <v-btn
-      color="pink-darken-4"
-      variant="elevated"
-      size="large"
-      @click="dialogVisible = true"
-    >
-      <p class="ma-4">{{ t("addTeam") }}</p>
-      <v-icon> mdi-account-plus</v-icon>
-    </v-btn>
-  </v-toolbar>
-
+    <v-col cols="12" sm="5" md="5" class="align-content-center text-center">
+      <v-btn
+        color="pink-darken-4"
+        variant="elevated"
+        size="large"
+        @click="dialogVisible = true"
+      >
+        <p class="ma-4">{{ t("addTeam") }}</p>
+        <v-icon> mdi-account-plus</v-icon>
+      </v-btn>
+    </v-col>
+  </v-row>
   <v-data-iterator :items="[data]" :items-per-page="itemsPerPage" :page="page">
     <template v-slot:default="items">
       <v-row width="400px">
-        <v-col cols="12" md="3" v-for="item in data" :key="item.title">
+        <v-col cols="12" md="3" sm="12" v-for="item in data" :key="item.title">
           <v-card role="button">
             <v-card-text class="text-center"> </v-card-text>
             <v-img
@@ -43,11 +44,7 @@
               <h3>{{ item.type }}</h3>
               <v-spacer></v-spacer>
 
-              <v-dialog
-                v-model="openDialog"
-                persistent
-                style="height: 700px; width: 700px"
-              >
+              <v-dialog v-model="openDialog" :persistent="true" width="auto">
                 <v-card>
                   <v-card-title>
                     <v-spacer></v-spacer>
@@ -61,8 +58,13 @@
                   <v-card-text>
                     <v-container>
                       <v-row class="h-50">
-                        <v-col cols="12" md="12">
-                          <v-img :src="data.img" class="mb-5"></v-img>
+                        <v-col cols="12" md="12" sm="4">
+                          <v-img
+                            :src="data.img"
+                            width="auto"
+                            max-height="700px"
+                            class="mb-5"
+                          ></v-img>
                         </v-col>
                         <v-col>
                           <p>{{ data.type }}</p>
@@ -85,8 +87,8 @@
                 <span @click="dialogDelete">
                   <v-dialog
                     v-model="openDelete"
-                    persistent
-                    style="height: 700px; width: 700px"
+                    :persistent="true"
+                    width="auto"
                   >
                     <v-card>
                       <v-card-title class="text-h5"> Delete Item </v-card-title>
@@ -125,12 +127,15 @@
                   <v-container>
                     <v-dialog
                       v-model="dialogVisible"
-                      style="height: 700px; width: 700px"
-                      persistent
+                      width="auto"
+                      :persistent="true"
                     >
                       <v-card>
                         <v-card-title>
-                          <span class="text-h5">edit </span>
+                          <span class="text-h5" v-if="route.params.id">
+                            Edit
+                          </span>
+                          <span class="text-h5" v-else> Add </span>
                         </v-card-title>
 
                         <v-card-text>
@@ -194,7 +199,7 @@
       <div class="d-flex align-center justify-space-around pa-4">
         <v-menu open-on-hover>
           <template v-slot:activator="{ props }">
-            <v-btn v-bind="props"> Item per page </v-btn>
+            <v-btn v-bind="props"> {{ t("itemPerPage") }} </v-btn>
           </template>
 
           <v-list>
@@ -211,7 +216,7 @@
         <v-spacer></v-spacer>
 
         <span class="mr-4 grey--text">
-          Page {{ page }} of {{ numberOfPages }}
+          {{ t("pageof") }} {{ page }} {{ t("of") }} {{ numberOfPages }}
         </span>
         <v-btn icon size="small" @click="prevPage">
           <v-icon>mdi-chevron-left</v-icon>
@@ -222,7 +227,6 @@
       </div>
     </template>
   </v-data-iterator>
-  <!--  <v-pagination v-model="page" :length="pageCount"></v-pagination>-->
 </template>
 
 <script setup lang="ts">
@@ -275,7 +279,6 @@ const items = ref([
 ]);
 
 const numberOfPages = computed(() => {
-  console.log("data ", data.value.length, "_rawValue", itemsPerPage.value);
   return Math.ceil(data.value.length / itemsPerPage.value);
 });
 
@@ -306,7 +309,7 @@ const limit = ref(10);
 const totalPages = ref(0);
 const fetchData = async () => {
   await apiData
-    .get("/team", {
+    .get(`/team`, {
       params: {
         _page: page.value,
         _limit: limit.value,
@@ -324,8 +327,6 @@ const fetchData = async () => {
 };
 
 const submit = handleSubmit(() => {
-  console.log(route);
-
   if (!parseInt(route.params.id)) {
     addData();
   } else {
@@ -334,9 +335,8 @@ const submit = handleSubmit(() => {
 });
 
 onMounted(async () => {
-  console.log("data.value.length=", data);
   fetchData();
-  console.log("data.value.length After fetch=", [data.value].length);
+
   const storedDialogVisible = localStorage.getItem("dialogVisible");
   const storedOpenDialog = localStorage.getItem("openDialog");
   const storedOpenDelete = localStorage.getItem("openDelete");
@@ -400,7 +400,6 @@ const patchData = async () => {
 };
 const deleteFn = async (ItemId) => {
   await apiData.delete(`/team/${parseInt(route.params.id)}`).then(() => {
-    console.log(`Deleted post with ID ${ItemId}`);
     openDelete.value = false;
     router.push("/team");
     fetchData();
@@ -439,6 +438,10 @@ const viewDialog = async (id) => {
 const closeViewDialog = () => {
   openDialog.value = false;
   router.push("/team");
+  fetchData();
+};
+const refreshData = () => {
+  search.value = "";
   fetchData();
 };
 </script>
