@@ -6,7 +6,7 @@
       "lastName": "Spencer",
       "date": "2023-07-18T09:19:38.662Z",
       "type": "Backend",
-      "status": true,
+      "status": false,
       "description": "Id est est tempor q"
     },
     {
@@ -71,6 +71,15 @@
       "type": "Backend",
       "status": true,
       "description": "Reiciendis aut ex si"
+    },
+    {
+      "id": 46,
+      "firstName": "Uriah",
+      "lastName": "Dotson",
+      "date": "21-Nov-2014",
+      "type": "Backend",
+      "status": true,
+      "description": "Non sunt aut sapient"
     }
   ],
   "team": [
@@ -93,6 +102,31 @@
       "id": 8,
       "img": "https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
       "type": "Android"
+    },
+    {
+      "id": 82,
+      "img": " https://images.pexels.com/photos/46253/mt-fuji-sea-of-clouds-sunrise-46253.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "Backend"
+    },
+    {
+      "id": 95,
+      "img": "https://images.pexels.com/photos/3848158/pexels-photo-3848158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "Android"
+    },
+    {
+      "id": 68,
+      "img": "https://images.pexels.com/photos/3848158/pexels-photo-3848158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "QA "
+    },
+    {
+      "id": 49,
+      "img": "https://images.pexels.com/photos/3848158/pexels-photo-3848158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "Frontend"
+    },
+    {
+      "id": 11,
+      "img": "https://images.pexels.com/photos/3848158/pexels-photo-3848158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "Scrum Master"
     }
   ],
   "profile": {

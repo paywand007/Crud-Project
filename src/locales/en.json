@@ -21,6 +21,8 @@
   "require": "This field is required",
   "of": "of",
   "yes": "Yes",
+  "add": "Add",
+  "update": " Update",
   "no": "No",
   "10": "10",
   "25": "25",

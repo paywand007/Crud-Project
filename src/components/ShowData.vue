@@ -108,6 +108,26 @@ import apiData from "./apiData.ts";
 import { RouterLink, useRouter, useRoute } from "vue-router";
 import { computed, onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
+import { useField } from "vee-validate";
+const { value: fName, errorMessage: ereMsgName } = useField<string>(
+  "fName",
+  "required",
+);
+const { value: lName, errorMessage: ereMsglName } = useField<string>(
+  "lName",
+  "required",
+);
+const { value: typeData, errorMessage: ereMsgType } = useField<string>(
+  "typeData",
+  "required",
+);
+
+const { value: status, errorMessage: ereMsgActive } =
+  useField<boolean>("status");
+
+const { value: description, errorMessage: ereMsgDescription } =
+  useField<string>("description");
+const { value: date, errorMessage: ereMsgDate } = useField<string>("date");
 const router = useRouter();
 
 const route = useRoute();
@@ -163,8 +183,6 @@ const performSearch = async () => {
     await apiData
       .get(`/posts?q=${searchRes.value as string}`)
       .then((res) => (data.value = res.data));
-    // const response = await apiData.get(`/posts`);
-    // data.value = response.data;
   } catch (error) {
     console.error(error);
   }
@@ -174,3 +192,5 @@ const refreshData = () => {
   fetchDta();
 };
 </script>
+
+<style scoped></style>

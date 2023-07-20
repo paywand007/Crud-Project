@@ -23,8 +23,9 @@
         size="large"
         @click="dialogVisible = true"
       >
-        <p class="ma-4">{{ t("addTeam") }}</p>
-        <v-icon> mdi-account-plus</v-icon>
+        <p class="text-decoration-none text-white">
+          {{ t("addTeam") }} <v-icon> mdi-account-plus</v-icon>
+        </p>
       </v-btn>
     </v-col>
   </v-row>
@@ -174,7 +175,7 @@
                             variant="text"
                             @click="closeDialog"
                           >
-                            Cancel
+                            {{ t("no") }}
                           </v-btn>
 
                           <v-btn
@@ -182,7 +183,7 @@
                             variant="text"
                             @click="submit"
                           >
-                            {{ route.params.id ? "Update" : "Add" }}
+                            {{ route.params.id ? t("update") : t("add") }}
                           </v-btn>
                         </v-card-actions>
                       </v-card>
