@@ -198,7 +198,7 @@
     </template>
     <template v-slot:footer>
       <div class="d-flex align-center justify-space-around pa-4">
-        <v-menu open-on-hover>
+        <v-menu>
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props"> {{ t("itemPerPage") }} </v-btn>
           </template>
