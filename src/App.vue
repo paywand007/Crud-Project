@@ -43,7 +43,7 @@
       <v-menu>
         <template v-slot:activator="{ props }">
           <v-btn color="black" v-bind="props">
-            <v-icon size="45">mdi-web</v-icon></v-btn
+            <v-icon size="45">mdi-web </v-icon></v-btn
           >
         </template>
 
@@ -70,7 +70,8 @@ import { useI18n } from "vue-i18n";
 import { useDataStore } from "./store/index.ts";
 
 const { locale, t } = useI18n();
-
+const storedLanguage = localStorage.getItem("selectedLanguage") || "en";
+locale.value = storedLanguage;
 const drawer = ref(null);
 const store = useDataStore();
 
@@ -78,12 +79,18 @@ const items = computed(() => [
   {
     id: 1,
     value: t("langE"),
-    click: () => (locale.value = "en"),
+    click: () => {
+      locale.value = "en";
+      localStorage.setItem("selectedLanguage", "en");
+    },
   },
   {
     id: 1,
     value: t("langK"),
-    click: () => (locale.value = "ckb"),
+    click: () => {
+      locale.value = "ckb";
+      localStorage.setItem("selectedLanguage", "ckb");
+    },
   },
 ]);
 </script>

@@ -64,6 +64,7 @@ const addData = async () => {
     .then((res) => {
       fetchData();
       data.value = res.data;
+      fName.value = "";
       router.back();
     });
 };
@@ -76,7 +77,6 @@ const updateData = async () => {
       type: typeData.value,
       status: status.value,
       date: date.value,
-
       description: description.value,
     })
     .then((res) => {
@@ -86,16 +86,13 @@ const updateData = async () => {
       fetchData();
     });
 };
-const submit = handleSubmit(() => {
+const submit = handleSubmit(async () => {
   if (id) {
-    updateData();
+    await updateData();
   } else {
-    addData();
+    await addData();
   }
 });
-const cancel = () => {
-  router.back();
-};
 </script>
 
 <template>
@@ -110,10 +107,8 @@ const cancel = () => {
           v-model="status"
           :error-messages="ereMsgActive"
           color="pink-darken-4"
-        ></v-switch>
-        {{ status }}</v-toolbar
-      ></v-container
-    >
+        ></v-switch> </v-toolbar
+    ></v-container>
     <v-container class="pa-8 mt-10">
       <v-row>
         <v-col cols="12" md="4">
@@ -186,7 +181,12 @@ const cancel = () => {
             class=""
             >Save
           </v-btn>
-          <v-btn block rounded="xl" size="x-large" color="pink" @click="cancel"
+          <v-btn
+            block
+            rounded="xl"
+            size="x-large"
+            color="pink"
+            @click="() => router.back()"
             >Cancel</v-btn
           >
         </v-col></v-row
