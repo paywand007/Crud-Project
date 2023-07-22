@@ -24,11 +24,13 @@ const { handleSubmit, setValues, resetForm } = useForm({
       return true;
     },
     typeData(value) {
-      if (!value || !value.length) return true;
+      if (!value || !value.length > 0) {
+        return "This field is required";
+      }
       return true;
     },
     status(value) {
-      if (!value || !value.length) return true;
+      if (!value || !vaslue.length) return true;
       return true;
     },
     description(value) {
@@ -159,6 +161,7 @@ const canceleFn = () => {
         <v-col cols="12" md="4">
           <v-select
             v-model="typeData.value.value"
+            :error-messages="typeData.errorMessage.value"
             label="Select"
             :items="[
               'Frontend',
@@ -168,7 +171,6 @@ const canceleFn = () => {
               'Scrum Master',
               'UX UI ',
             ]"
-            :error-messages="typeData.errorMessage.value"
           ></v-select>
         </v-col>
       </v-row>

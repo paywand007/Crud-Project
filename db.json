@@ -6,7 +6,7 @@
       "lastName": "Spencer",
       "date": "2023-07-18T09:19:38.662Z",
       "type": "Backend",
-      "status": false,
+      "status": true,
       "description": "Id est est tempor q"
     },
     {
@@ -15,7 +15,7 @@
       "lastName": "Mcclain",
       "date": "2023-07-18T09:20:39.082Z",
       "type": "Backend",
-      "status": true,
+      "status": false,
       "description": "Beatae possimus aut"
     },
     {
@@ -47,12 +47,12 @@
     },
     {
       "id": 83,
-      "firstName": "Riley",
-      "lastName": "Velasquez",
+      "firstName": "aaa",
+      "lastName": "aaaaaaaaaa",
       "date": "2023-07-18T20:34:09.803Z",
-      "type": "Frontend",
+      "type": "Backend",
       "status": true,
-      "description": "Cum eligendi quaerat"
+      "description": "ddddddddddddd"
     },
     {
       "id": 100,
@@ -80,14 +80,33 @@
       "type": "Backend",
       "status": true,
       "description": "Non sunt aut sapient"
+    },
+    {
+      "id": 61,
+      "firstName": "Teegan",
+      "lastName": "Fischer",
+      "date": "13-May-1996",
+      "type": "Backend",
+      "status": true,
+      "description": "Ipsum saepe et volup"
+    },
+    {
+      "id": 38,
+      "firstName": "Daryl",
+      "lastName": "Miles",
+      "date": "01-Sep-1993",
+      "type": "QA ",
+      "status": false,
+      "description": "Quia voluptatem culp"
+    },
+    {
+      "id": 78,
+      "firstName": "www",
+      "lastName": "www",
+      "date": ""
     }
   ],
   "team": [
-    {
-      "id": 41,
-      "img": "https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      "type": "Scrum Master"
-    },
     {
       "id": 64,
       "img": "https://images.pexels.com/photos/2371936/pexels-photo-2371936.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -101,7 +120,7 @@
     {
       "id": 8,
       "img": "https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "Android"
+      "type": "QA "
     },
     {
       "id": 82,
