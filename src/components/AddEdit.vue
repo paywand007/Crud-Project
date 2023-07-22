@@ -133,7 +133,10 @@ const canceleFn = () => {
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
 
-        <v-switch v-model="status" color="pink-darken-4"></v-switch> </v-toolbar
+        <v-switch
+          v-model="status.value.value"
+          color="pink-darken-4"
+        ></v-switch> </v-toolbar
     ></v-container>
     <v-container class="pa-8 mt-10">
       <v-row>
