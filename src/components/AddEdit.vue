@@ -9,28 +9,47 @@ import { useI18n } from "vue-i18n";
 const { locale, t } = useI18n();
 const route = useRoute();
 const { id } = route.params;
-const { handleSubmit, setValues } = useForm();
+const { handleSubmit, setValues, resetForm } = useForm({
+  validationSchema: {
+    fName(value) {
+      if (!value || !value.length) {
+        return "This field is required";
+      }
+      return true;
+    },
+    lName(value) {
+      if (!value || !value.length) {
+        return "This field is required";
+      }
+      return true;
+    },
+    typeData(value) {
+      if (!value || !value.length) return true;
+      return true;
+    },
+    status(value) {
+      if (!value || !value.length) return true;
+      return true;
+    },
+    description(value) {
+      if (!value || !value.length) return true;
+      return true;
+    },
+    date(value) {
+      if (!value || !value.length) return true;
+      return true;
+    },
+  },
+});
 const router = useRouter();
 const data = ref({});
-const { value: fName, errorMessage: ereMsgName } = useField<string>(
-  "fName",
-  "required",
-);
-const { value: lName, errorMessage: ereMsglName } = useField<string>(
-  "lName",
-  "required",
-);
-const { value: typeData, errorMessage: ereMsgType } = useField<string>(
-  "typeData",
-  "required",
-);
+const fName = useField<string>("fName");
+const lName = useField<string>("lName");
+const typeData = useField<string>("typeData");
+const status = useField<boolean>("status");
+const description = useField<string>("description");
+const date = useField<string>("date");
 
-const { value: status, errorMessage: ereMsgActive } =
-  useField<boolean>("status");
-
-const { value: description, errorMessage: ereMsgDescription } =
-  useField<string>("description");
-const { value: date, errorMessage: ereMsgDate } = useField<string>("date");
 const fetchData = async () => {
   await apiData.get(`/posts/${id}`).then((res) => {
     data.value = res.data;
@@ -54,12 +73,12 @@ const addData = async () => {
   await apiData
     .post("/posts", {
       id: Math.floor(Math.random() * 101),
-      firstName: fName?.value,
-      lastName: lName?.value,
-      date: date.value,
-      type: typeData.value,
-      status: status.value,
-      description: description.value,
+      firstName: fName?.value.value,
+      lastName: lName?.value.value,
+      date: date.value.value,
+      type: typeData.value.value,
+      status: status.value.value,
+      description: description.value.value,
     })
     .then((res) => {
       fetchData();
@@ -72,12 +91,12 @@ const addData = async () => {
 const updateData = async () => {
   await apiData
     .patch(`/posts/${parseInt(id as string)}`, {
-      firstName: fName?.value,
-      lastName: lName?.value,
-      type: typeData.value,
-      status: status.value,
-      date: date.value,
-      description: description.value,
+      firstName: fName?.value.value,
+      lastName: lName?.value.value,
+      type: typeData.value.value,
+      status: status.value.value,
+      date: date.value.value,
+      description: description.value.value,
     })
     .then((res) => {
       fetchData();
@@ -93,6 +112,17 @@ const submit = handleSubmit(async () => {
     await addData();
   }
 });
+const canceleFn = () => {
+  resetForm({
+    fName: "",
+    lName: "",
+    typeData: "",
+    status: "",
+    date: "",
+    description: "",
+  });
+  router.back();
+};
 </script>
 
 <template>
@@ -103,33 +133,29 @@ const submit = handleSubmit(async () => {
         <v-spacer></v-spacer>
         <v-spacer></v-spacer>
 
-        <v-switch
-          v-model="status"
-          :error-messages="ereMsgActive"
-          color="pink-darken-4"
-        ></v-switch> </v-toolbar
+        <v-switch v-model="status" color="pink-darken-4"></v-switch> </v-toolbar
     ></v-container>
     <v-container class="pa-8 mt-10">
       <v-row>
         <v-col cols="12" md="4">
           <v-text-field
             label="First name"
-            v-model="fName"
-            :error-messages="ereMsgName"
+            v-model="fName.value.value"
+            :error-messages="fName.errorMessage.value"
           ></v-text-field>
         </v-col>
 
         <v-col cols="12" md="4">
           <v-text-field
             label="Last name"
-            v-model="lName"
-            :error-messages="ereMsglName"
+            v-model="lName.value.value"
+            :error-messages="lName.errorMessage.value"
           ></v-text-field>
         </v-col>
 
         <v-col cols="12" md="4">
           <v-select
-            v-model="typeData"
+            v-model="typeData.value.value"
             label="Select"
             :items="[
               'Frontend',
@@ -139,15 +165,14 @@ const submit = handleSubmit(async () => {
               'Scrum Master',
               'UX UI ',
             ]"
-            :error-messages="ereMsgType"
+            :error-messages="typeData.errorMessage.value"
           ></v-select>
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" md="4">
           <v-text-field
-            v-model="date"
-            :error-messages="ereMsgDate"
+            v-model="date.value.value"
             label=" Date"
             required
           ></v-text-field>
@@ -156,8 +181,7 @@ const submit = handleSubmit(async () => {
       <v-row>
         <v-col cols="12" md="12">
           <v-textarea
-            v-model="description"
-            :error-messages="ereMsgDescription"
+            v-model="description.value.value"
             label="Description"
           ></v-textarea
         ></v-col>
@@ -181,12 +205,7 @@ const submit = handleSubmit(async () => {
             class=""
             >Save
           </v-btn>
-          <v-btn
-            block
-            rounded="xl"
-            size="x-large"
-            color="pink"
-            @click="() => router.back()"
+          <v-btn rounded="xl" size="x-large" color="pink" @click="canceleFn"
             >Cancel</v-btn
           >
         </v-col></v-row
