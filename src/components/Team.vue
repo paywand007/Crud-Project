@@ -100,8 +100,8 @@ const fetchData = async () => {
       data.value = res.data;
 
       setValues({
-        img: data.img,
-        type: data.type,
+        img: data.img.value,
+        type: data.type.value,
       });
     });
 };
@@ -160,13 +160,15 @@ const closeDialog = () => {
 const updateData = async (id) => {
   dialogVisible.value = true;
   router.push(`/team/${id}`);
-  await apiData.get(`/team/${id}`).then((res) => {
-    data.value = res.data;
-    setValues({
-      img: data.value.img,
-      typeData: data.value.type,
-    });
-  });
+  id
+    ? await apiData.get(`/team/${id}`).then((res) => {
+        data.value = res.data;
+        setValues({
+          img: data.value.img,
+          typeData: data.value.type,
+        });
+      })
+    : false;
 };
 const patchData = async () => {
   await apiData
