@@ -61,14 +61,14 @@
                       <v-row class="h-50">
                         <v-col cols="12" md="12" sm="4">
                           <v-img
-                            :src="data.img"
+                            :src="data.img.value"
                             width="auto"
                             max-height="700px"
                             class="mb-5"
                           ></v-img>
                         </v-col>
                         <v-col>
-                          <p>{{ data.type }}</p>
+                          <p>{{ data.type.value }}</p>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -145,15 +145,15 @@
                               <v-col cols="12">
                                 <v-text-field
                                   label="img String"
-                                  v-model="img"
-                                  :error-messages="errImg"
+                                  v-model="img.value.value"
+                                  :error-messages="img.errorMessage.value"
                                 ></v-text-field>
                               </v-col>
                               <v-col>
                                 <v-select
                                   label="Select"
-                                  v-model="typeData"
-                                  :error-messages="ereMsgType"
+                                  v-model="typeData.value.value"
+                                  :error-messages="typeData.errorMessage.value"
                                   :items="[
                                     'Frontend',
                                     'Backend',
@@ -238,7 +238,23 @@ import { useField, useForm } from "vee-validate";
 import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 
-const { handleSubmit, setValues } = useForm();
+const { handleSubmit, setValues } = useForm({
+  validationSchema: {
+    img(value) {
+      if (!value || !value.length) {
+        return "This field is required";
+      }
+    },
+    typeData(value) {
+      if (!value || !value.length) {
+        return "This field is required";
+      }
+    },
+  },
+});
+
+const img = useField<string>("img");
+const typeData = useField<string>("typeData");
 const { locale, t } = useI18n();
 const route = useRoute();
 const router = useRouter();
@@ -297,15 +313,6 @@ const prevPage = () => {
   }
 };
 
-const { value: img, errorMessage: errImg } = useField<string>(
-  "img",
-  "required",
-);
-
-const { value: typeData, errorMessage: ereMsgType } = useField<string>(
-  "typeData",
-  "required",
-);
 const limit = ref(10);
 const totalPages = ref(0);
 const fetchData = async () => {
