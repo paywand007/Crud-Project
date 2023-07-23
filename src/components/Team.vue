@@ -1,3 +1,238 @@
+<script setup lang="ts">
+import { computed, onMounted, ref, watch } from "vue";
+import apiData from "./apiData.ts";
+
+import { useField, useForm } from "vee-validate";
+import { useRoute, useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
+import i18n from "../i18n.ts";
+
+const { handleSubmit, resetForm, setValues } = useForm({
+  validationSchema: {
+    img(value) {
+      if (!value || !value.length) {
+        return i18n.global.t("require");
+      }
+      return true;
+    },
+    typeData(value) {
+      if (!value || !value.length) {
+        return i18n.global.t("require");
+      }
+      return true;
+    },
+  },
+});
+const { locale, t } = useI18n();
+const route = useRoute();
+const router = useRouter();
+const search = ref("");
+
+const data = ref([]);
+const itemsPerPageOptions = [3, 6, 9];
+const itemsPerPage = ref(itemsPerPageOptions[0]);
+const page = ref(1);
+
+const items = ref([
+  {
+    id: 1,
+    value: 4,
+    changeItemsPerPage: (option) => {
+      page.value = 1;
+      limit.value = option;
+      fetchData();
+    },
+  },
+  {
+    id: 1,
+    value: 8,
+    changeItemsPerPage: (option) => {
+      page.value = 1;
+      limit.value = option;
+      fetchData();
+    },
+  },
+  {
+    id: 1,
+    value: 12,
+    changeItemsPerPage: (option) => {
+      page.value = 1;
+      limit.value = option;
+      fetchData();
+    },
+  },
+]);
+
+const numberOfPages = computed(() => {
+  return Math.ceil(data.value.length / itemsPerPage.value);
+});
+
+const nextPage = () => {
+  if (page.value < totalPages.value) {
+    page.value++;
+    fetchData();
+  }
+};
+
+const prevPage = () => {
+  if (page.value > 1) {
+    page.value--;
+    fetchData();
+  }
+};
+
+const img = useField<string>("img");
+
+const typeData = useField<string>("typeData");
+const limit = ref(10);
+const totalPages = ref(0);
+const fetchData = async () => {
+  await apiData
+    .get(`/team`, {
+      params: {
+        _page: page.value,
+        _limit: limit.value,
+      },
+    })
+    .then((res) => {
+      const totalCount = parseInt(res.headers["x-total-count"]);
+      totalPages.value = Math.ceil(totalCount / limit.value);
+      data.value = res.data;
+
+      setValues({
+        img: data.img,
+        type: data.type,
+      });
+    });
+};
+
+const submit = handleSubmit(() => {
+  if (!parseInt(route.params.id)) {
+    addData();
+  } else {
+    patchData();
+  }
+});
+
+onMounted(async () => {
+  fetchData();
+
+  const storedDialogVisible = localStorage.getItem("dialogVisible");
+  const storedOpenDialog = localStorage.getItem("openDialog");
+  const storedOpenDelete = localStorage.getItem("openDelete");
+  if (storedDialogVisible === "true") {
+    dialogVisible.value = true;
+  } else if (storedOpenDialog === "true") {
+    openDialog.value = true;
+  } else if (storedOpenDelete === "true") {
+    openDelete.value = true;
+  }
+});
+const dialogVisible = ref(false);
+watch(dialogVisible, (newVal) => {
+  localStorage.setItem("dialogVisible", newVal.toString());
+});
+const openDialog = ref(false);
+watch(openDialog, (newVal) => {
+  localStorage.setItem("openDialog", newVal.toString());
+});
+const openDelete = ref(false);
+const dialogDelete = (idItem) => {
+  openDelete.value = true;
+  router.push(`/team/${idItem}`);
+};
+watch(openDelete, (newVal) => {
+  localStorage.setItem("openDelete", newVal.toString());
+});
+const closeDialog = () => {
+  dialogVisible.value = false;
+  localStorage.removeItem("dialogVisible");
+  localStorage.removeItem("inputValue");
+  resetForm({
+    img: "",
+    type: "",
+    t,
+  });
+  fetchData();
+  router.push("/team");
+};
+
+const updateData = async (id) => {
+  dialogVisible.value = true;
+  router.push(`/team/${id}`);
+  await apiData.get(`/team/${id}`).then((res) => {
+    data.value = res.data;
+    setValues({
+      img: data.value.img,
+      typeData: data.value.type,
+    });
+  });
+};
+const patchData = async () => {
+  await apiData
+    .patch(`/team/${route.params.id}`, {
+      img: img.value.value,
+      type: typeData.value.value,
+    })
+    .then((res) => {
+      data.value = res.data;
+      dialogVisible.value = false;
+      fetchData();
+      router.push("/team");
+      img.value.value = "";
+      typeData.value.value = "";
+    });
+};
+const deleteFn = async (ItemId) => {
+  await apiData.delete(`/team/${parseInt(route.params.id)}`).then(() => {
+    openDelete.value = false;
+    router.push("/team");
+    fetchData();
+  });
+};
+const addData = async () => {
+  await apiData
+    .post("/team", {
+      id: Math.floor(Math.random() * 101),
+      img: img.value.value,
+      type: typeData.value.value,
+    })
+    .then(() => {
+      dialogVisible.value = false;
+      img.value.value = "";
+      typeData.value.value = "";
+      fetchData();
+    });
+};
+
+const performSearch = () => {
+  if (!search.value) {
+    return data.value;
+  } else {
+    data.value = data.value.filter((item) =>
+      item.type.toLowerCase().includes(search.value.toLowerCase()),
+    );
+  }
+};
+
+const viewDialog = async (id) => {
+  openDialog.value = true;
+  router.push(`/team/${id}`);
+  await apiData.get(`/team/${id}`).then((res) => (data.value = res.data));
+};
+const closeViewDialog = () => {
+  openDialog.value = false;
+
+  router.push("/team");
+  fetchData();
+  img.value.value = "";
+  typeData.value.value = "";
+};
+const refreshData = () => {
+  search.value = "";
+  fetchData();
+};
+</script>
 <template>
   <v-row class="mt-5">
     <v-col cols="12" sm="3" md="3"
@@ -61,14 +296,14 @@
                       <v-row class="h-50">
                         <v-col cols="12" md="12" sm="4">
                           <v-img
-                            :src="data.img.value"
+                            :src="data.img"
                             width="auto"
                             max-height="700px"
                             class="mb-5"
                           ></v-img>
                         </v-col>
                         <v-col>
-                          <p>{{ data.type.value }}</p>
+                          <p>{{ data.type }}</p>
                         </v-col>
                       </v-row>
                     </v-container>
@@ -229,230 +464,6 @@
     </template>
   </v-data-iterator>
 </template>
-
-<script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
-import apiData from "./apiData.ts";
-
-import { useField, useForm } from "vee-validate";
-import { useRoute, useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
-
-const { handleSubmit, setValues } = useForm({
-  validationSchema: {
-    img(value) {
-      if (!value || !value.length) {
-        return "This field is required";
-      }
-    },
-    typeData(value) {
-      if (!value || !value.length) {
-        return "This field is required";
-      }
-    },
-  },
-});
-
-const img = useField<string>("img");
-const typeData = useField<string>("typeData");
-const { locale, t } = useI18n();
-const route = useRoute();
-const router = useRouter();
-const search = ref("");
-
-const data = ref([]);
-const itemsPerPageOptions = [3, 6, 9];
-const itemsPerPage = ref(itemsPerPageOptions[0]);
-const page = ref(1);
-
-const items = ref([
-  {
-    id: 1,
-    value: 4,
-    changeItemsPerPage: (option) => {
-      page.value = 1;
-      limit.value = option;
-      fetchData();
-    },
-  },
-  {
-    id: 1,
-    value: 8,
-    changeItemsPerPage: (option) => {
-      page.value = 1;
-      limit.value = option;
-      fetchData();
-    },
-  },
-  {
-    id: 1,
-    value: 12,
-    changeItemsPerPage: (option) => {
-      page.value = 1;
-      limit.value = option;
-      fetchData();
-    },
-  },
-]);
-
-const numberOfPages = computed(() => {
-  return Math.ceil(data.value.length / itemsPerPage.value);
-});
-
-const nextPage = () => {
-  if (page.value < totalPages.value) {
-    page.value++;
-    fetchData();
-  }
-};
-
-const prevPage = () => {
-  if (page.value > 1) {
-    page.value--;
-    fetchData();
-  }
-};
-
-const limit = ref(10);
-const totalPages = ref(0);
-const fetchData = async () => {
-  await apiData
-    .get(`/team`, {
-      params: {
-        _page: page.value,
-        _limit: limit.value,
-      },
-    })
-    .then((res) => {
-      const totalCount = parseInt(res.headers["x-total-count"]);
-      totalPages.value = Math.ceil(totalCount / limit.value);
-      data.value = res.data;
-      setValues({
-        img: data.value.img,
-        type: data.value.type,
-      });
-    });
-};
-
-const submit = handleSubmit(() => {
-  if (!parseInt(route.params.id)) {
-    addData();
-  } else {
-    patchData();
-  }
-});
-
-onMounted(async () => {
-  fetchData();
-
-  const storedDialogVisible = localStorage.getItem("dialogVisible");
-  const storedOpenDialog = localStorage.getItem("openDialog");
-  const storedOpenDelete = localStorage.getItem("openDelete");
-  if (storedDialogVisible === "true") {
-    dialogVisible.value = true;
-  } else if (storedOpenDialog === "true") {
-    openDialog.value = true;
-  } else if (storedOpenDelete === "true") {
-    openDelete.value = true;
-  }
-});
-const dialogVisible = ref(false);
-watch(dialogVisible, (newVal) => {
-  localStorage.setItem("dialogVisible", newVal.toString());
-});
-const openDialog = ref(false);
-watch(openDialog, (newVal) => {
-  localStorage.setItem("openDialog", newVal.toString());
-});
-const openDelete = ref(false);
-const dialogDelete = (idItem) => {
-  openDelete.value = true;
-  router.push(`/team/${idItem}`);
-};
-watch(openDelete, (newVal) => {
-  localStorage.setItem("openDelete", newVal.toString());
-});
-const closeDialog = () => {
-  dialogVisible.value = false;
-  localStorage.removeItem("dialogVisible");
-  // localStorage.removeItem("inputValue");
-  fetchData();
-  router.push("/team");
-};
-
-const updateData = async (id) => {
-  dialogVisible.value = true;
-  router.push(`/team/${id}`);
-  await apiData.get(`/team/${id}`).then((res) => {
-    data.value = res.data;
-    setValues({
-      img: data.value.img,
-      typeData: data.value.type,
-    });
-  });
-};
-const patchData = async () => {
-  await apiData
-    .patch(`/team/${route.params.id}`, {
-      img: img.value,
-      type: typeData.value,
-    })
-    .then((res) => {
-      data.value = res.data;
-      dialogVisible.value = false;
-      fetchData();
-      router.push("/team");
-      img.value = "";
-      typeData.value = "";
-    });
-};
-const deleteFn = async (ItemId) => {
-  await apiData.delete(`/team/${parseInt(route.params.id)}`).then(() => {
-    openDelete.value = false;
-    router.push("/team");
-    fetchData();
-  });
-};
-const addData = async () => {
-  await apiData
-    .post("/team", {
-      id: Math.floor(Math.random() * 101),
-      img: img.value,
-      type: typeData.value,
-    })
-    .then(() => {
-      dialogVisible.value = false;
-      fetchData();
-      img.value = "";
-      typeData.value = "";
-    });
-};
-
-const performSearch = () => {
-  if (!search.value) {
-    return data.value;
-  } else {
-    data.value = data.value.filter((item) =>
-      item.type.toLowerCase().includes(search.value.toLowerCase()),
-    );
-  }
-};
-
-const viewDialog = async (id) => {
-  openDialog.value = true;
-  router.push(`/team/${id}`);
-  await apiData.get(`/team/${id}`).then((res) => (data.value = res.data));
-};
-const closeViewDialog = () => {
-  openDialog.value = false;
-  router.push("/team");
-  fetchData();
-};
-const refreshData = () => {
-  search.value = "";
-  fetchData();
-};
-</script>
 
 <style>
 /* Add any custom styles here */

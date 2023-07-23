@@ -13,7 +13,6 @@ const routes = createRouter({
       name: "edit",
       component: AddEdit,
     },
-
     {
       path: "/team/:id?",
       name: "team",

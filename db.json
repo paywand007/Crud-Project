@@ -4,10 +4,10 @@
       "id": 96,
       "firstName": "Lenore",
       "lastName": "Spencer",
-      "date": "2023-07-18T09:19:38.662Z",
+      "date": "2023-07-18 ",
       "type": "Backend",
-      "status": true,
-      "description": "Id est est tempor q"
+      "status": false,
+      "description": " est tempor q"
     },
     {
       "id": 69,
@@ -87,7 +87,7 @@
       "lastName": "Fischer",
       "date": "13-May-1996",
       "type": "Backend",
-      "status": true,
+      "status": false,
       "description": "Ipsum saepe et volup"
     },
     {
@@ -100,10 +100,22 @@
       "description": "Quia voluptatem culp"
     },
     {
-      "id": 78,
-      "firstName": "www",
-      "lastName": "www",
-      "date": ""
+      "id": 31,
+      "firstName": "Ashely",
+      "lastName": "Stewart",
+      "date": "21-Jun-1973",
+      "type": "Backend",
+      "status": false,
+      "description": "Necessitatibus sed e"
+    },
+    {
+      "id": 75,
+      "firstName": "Hamish",
+      "lastName": "Carr",
+      "date": "12-Apr-1976",
+      "type": "Android",
+      "status": false,
+      "description": "Sit aut aut quisqua"
     }
   ],
   "team": [
@@ -120,7 +132,7 @@
     {
       "id": 8,
       "img": "https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "QA "
+      "type": "Frontend"
     },
     {
       "id": 82,
@@ -146,6 +158,11 @@
       "id": 11,
       "img": "https://images.pexels.com/photos/3848158/pexels-photo-3848158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
       "type": "Scrum Master"
+    },
+    {
+      "id": 75,
+      "img": "https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      "type": "UX UI "
     }
   ],
   "profile": {

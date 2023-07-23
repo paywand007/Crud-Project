@@ -5,6 +5,7 @@ import { useForm, useField } from "vee-validate";
 import { useRoute, useRouter } from "vue-router";
 
 import { useI18n } from "vue-i18n";
+import i18n from "../i18n.ts";
 
 const { locale, t } = useI18n();
 const route = useRoute();
@@ -13,19 +14,19 @@ const { handleSubmit, setValues, resetForm } = useForm({
   validationSchema: {
     fName(value) {
       if (!value || !value.length) {
-        return "This field is required";
+        return i18n.global.t("require");
       }
       return true;
     },
     lName(value) {
       if (!value || !value.length) {
-        return "This field is required";
+        return i18n.global.t("require");
       }
       return true;
     },
     typeData(value) {
       if (!value || !value.length > 0) {
-        return "This field is required";
+        return i18n.global.t("require");
       }
       return true;
     },
