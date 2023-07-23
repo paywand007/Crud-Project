@@ -30,7 +30,7 @@ const { handleSubmit, setValues, resetForm } = useForm({
       return true;
     },
     status(value) {
-      if (!value || !vaslue.length) return true;
+      if (!value || !value.length) return true;
       return true;
     },
     description(value) {
