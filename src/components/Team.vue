@@ -6,6 +6,7 @@ import { useField, useForm } from "vee-validate";
 import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import i18n from "../i18n.ts";
+import AddEditTeam from "./team/AddEditTeam.vue";
 
 const { handleSubmit, resetForm, setValues } = useForm({
   validationSchema: {
@@ -98,11 +99,6 @@ const fetchData = async () => {
       const totalCount = parseInt(res.headers["x-total-count"]);
       totalPages.value = Math.ceil(totalCount / limit.value);
       data.value = res.data;
-
-      setValues({
-        img: data.img.value,
-        type: data.type.value,
-      });
     });
 };
 
@@ -365,7 +361,7 @@ const refreshData = () => {
                   <v-container>
                     <v-dialog
                       v-model="dialogVisible"
-                      width="auto"
+                      width="500"
                       :persistent="true"
                     >
                       <v-card>
