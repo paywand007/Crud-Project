@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import apiData from "../apiData.ts";
+import apiData from "../../plugins/apiData.ts";
 import { onMounted, ref } from "vue";
 
 const route = useRoute();

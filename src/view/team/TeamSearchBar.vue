@@ -34,7 +34,7 @@
   </v-row>
 </template>
 <script setup lang="ts">
-import i18n from "../../i18n.ts";
+import i18n from "../../plugins/i18n.ts";
 import { useI18n } from "vue-i18n";
 import { ref } from "vue";
 import AddEditTeam from "./AddEditTeam.vue";

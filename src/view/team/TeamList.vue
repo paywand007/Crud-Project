@@ -1,6 +1,6 @@
 <template>
-  <v-data-iterator :items="[data]">
-    <template v-slot:default="items">
+  <v-data-iterator :items="data">
+    <template v-slot:default="{ items }">
       <v-row width="400px">
         <v-col cols="12" md="3" sm="12" v-for="item in data" :key="item.title">
           <v-card role="button">
@@ -19,7 +19,7 @@
                 <v-icon> mdi-pencil </v-icon>
 
                 <v-dialog v-model="editDialog" :persistent="true">
-                  <AddEditTeam @closeDialog="close" @updateData="updateFn" />
+                  <AddEditTeam @closeDialog="close" @refreshData="refDats" />
                 </v-dialog>
               </span>
               <span @click="openPreview(item.id)"
@@ -62,39 +62,124 @@
         </v-col>
       </v-row>
     </template>
+    <template v-slot:footer>
+      <div class="d-flex align-center justify-space-around pa-4">
+        <v-menu>
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props"> {{ t("itemPerPage") }} </v-btn>
+          </template>
+
+          <v-list>
+            <v-list-item v-for="(item, index) in items" :key="index + item.id">
+              <v-list-item-title
+                @click="item.changeItemsPerPage(item.value)"
+                style="cursor: pointer"
+                >{{ item.value }}</v-list-item-title
+              >
+            </v-list-item>
+          </v-list>
+        </v-menu>
+
+        <v-spacer></v-spacer>
+
+        <span class="mr-4 grey--text">
+          {{ t("pageof") }} {{ page }} {{ t("of") }} {{ numberOfPages }}
+        </span>
+        <v-btn icon size="small" @click="prevPage">
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+        <v-btn icon size="small" class="ml-2" @click="nextPage">
+          <v-icon>mdi-chevron-right</v-icon>
+        </v-btn>
+      </div>
+    </template>
   </v-data-iterator>
 </template>
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed, onMounted, provide, ref } from "vue";
 
 import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
 
 import AddEditTeam from "./AddEditTeam.vue";
 import TeamPreview from "./TeamPreview.vue";
-import apiData from "../apiData.ts";
+import apiData from "../../plugins/apiData.ts";
+
 const { t } = useI18n();
-const data = ref([]);
+const prop = defineProps(["data"]);
 
 const router = useRouter();
 const route = useRoute();
-const { id } = route.params.id;
+const data = ref([]);
 const dialog = ref(false);
 const editDialog = ref(false);
 const previewDialog = ref(false);
-const openEditDialog = (id) => {
+const openEditDialog = (id: number) => {
   editDialog.value = true;
   router.push(`/team/${id}`);
 };
+const itemsPerPageOptions = [3, 6, 9];
+const itemsPerPage = ref(itemsPerPageOptions[0]);
+const page = ref(1);
+const limit = ref(10);
+const totalPages = ref(0);
+const items = ref([
+  {
+    id: 1,
+    value: 4,
+    changeItemsPerPage: (option: number) => {
+      page.value = 1;
+      limit.value = option;
+      fetchData();
+    },
+  },
+  {
+    id: 1,
+    value: 8,
+    changeItemsPerPage: (option: number) => {
+      page.value = 1;
+      limit.value = option;
+      fetchData();
+    },
+  },
+  {
+    id: 1,
+    value: 12,
+    changeItemsPerPage: (option: number) => {
+      page.value = 1;
+      limit.value = option;
+      fetchData();
+    },
+  },
+]);
+
+const numberOfPages = computed(() => {
+  return Math.ceil(data.value.length / itemsPerPage.value);
+});
+
+const nextPage = () => {
+  if (page.value < totalPages.value) {
+    page.value++;
+    fetchData();
+  }
+};
+
+const prevPage = () => {
+  if (page.value > 1) {
+    page.value--;
+    fetchData();
+  }
+};
+
+const message = ref("hello");
+provide("message", message);
+
 const emit = defineEmits(["dialogDelete", "updateFn"]);
-const dialogDeleteOpen = (idItem) => {
-  console.log("click");
+const dialogDeleteOpen = (idItem: number) => {
   dialog.value = true;
   router.push(`/team/${idItem}`);
 };
-const updateFn = () => {
-  emit("updateFn");
-};
+
 const openPreview = (id) => {
   previewDialog.value = true;
   router.push(`/team/${id}`);
@@ -113,7 +198,22 @@ const deleteFn = () => {
   router.push("/team");
 };
 const fetchData = async () => {
-  await apiData.get(`/team`).then((res) => (data.value = res.data));
+  return await apiData
+    .get(`/team`, {
+      params: {
+        _page: page.value,
+        _limit: limit.value,
+      },
+    })
+    .then((res) => {
+      const totalCount = parseInt(res.headers["x-total-count"]);
+      totalPages.value = Math.ceil(totalCount / limit.value);
+      data.value = res.data;
+    });
+};
+const refDats = (item) => {
+  if (item === true) fetchData();
+  return {};
 };
 onMounted(() => {
   fetchData();

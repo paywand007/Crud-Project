@@ -1,6 +1,6 @@
 <!-- StaffList.vue -->
 <template>
-  <v-data-table :headers="headers" :items="props.searchQuery || props.data">
+  <v-data-table :headers="headers" :items="props.searchQuery">
     <template v-slot:item="{ item }">
       <tr>
         <td>{{ item.selectable.firstName }} {{ item.selectable.lastName }}</td>
@@ -74,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, inject } from "vue";
 import { useI18n } from "vue-i18n";
 
 import { useRouter, useRoute } from "vue-router";
@@ -94,8 +94,7 @@ const props = defineProps(["searchQuery", "data"]);
 
 const emit = defineEmits(["dialogDelete"]);
 const dialog = ref(false);
-const dialogDeleteOpen = (idItem) => {
-  console.log("click");
+const dialogDeleteOpen = (idItem: number) => {
   dialog.value = true;
   router.push(`/${idItem}`);
 };

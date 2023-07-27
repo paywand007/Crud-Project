@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { watch } from "vue";
-import apiData from "../apiData.ts";
+import apiData from "../../plugins/apiData.ts";
 import { useRoute } from "vue-router";
 const route = useRoute();
 const data = ref([]);

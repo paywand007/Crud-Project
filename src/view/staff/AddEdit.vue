@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import apiData from "../apiData.ts";
-import { onMounted, ref } from "vue";
+import apiData from "../../plugins/apiData.ts";
+import { inject, onMounted, ref } from "vue";
 import { useForm, useField } from "vee-validate";
 import { useRoute, useRouter } from "vue-router";
 
 import { useI18n } from "vue-i18n";
 
-const { locale, t } = useI18n();
+const { t } = useI18n();
 const route = useRoute();
 const { id } = route.params;
 const { handleSubmit, setValues, resetForm } = useForm({
@@ -72,7 +72,6 @@ const fetchData = async () => {
 onMounted(() => {
   id ? fetchData() : false;
 });
-
 const addData = async () => {
   await apiData
     .post("/posts", {
@@ -87,11 +86,10 @@ const addData = async () => {
     .then((res) => {
       fetchData();
       data.value = res.data;
-      fName.value = "";
+      console.log("added");
       router.back();
     });
 };
-
 const updateData = async () => {
   await apiData
     .patch(`/posts/${parseInt(id as string)}`, {

@@ -11,20 +11,18 @@
 <script setup lang="ts">
 import StaffList from "./StaffList.vue";
 import StaffSearchBar from "./StaffSearchBar.vue";
-import { onMounted, ref } from "vue";
-import apiData from "../apiData.ts";
+import { onMounted, provide, ref } from "vue";
+import apiData from "../../plugins/apiData.ts";
+
 const searchQuery = ref([]);
 
 const fetchDta = async () => {
   await apiData.get("/posts").then((res) => (searchQuery.value = res.data));
 };
-onMounted(async () => {
+onMounted(() => {
   fetchDta();
-  console.log(searchQuery.value);
 });
-const handleSearch = async (query) => {
-  // update fetchDta search query
-  console.log("QUERY", query);
+const handleSearch = async (query: string) => {
   try {
     await apiData
       .get(`/posts?q=${query}`)
@@ -33,7 +31,7 @@ const handleSearch = async (query) => {
     console.error(error);
   }
 };
-const deleteData = async (id) => {
+const deleteData = async (id: number) => {
   await apiData
     .delete(`/posts/${id}`)
     .then(() => {
@@ -47,9 +45,4 @@ const refreshData = () => {
   searchQuery.value = "";
   fetchDta();
 };
-onMounted(() => {
-  fetchDta();
-});
 </script>
-
-<style scoped></style>
