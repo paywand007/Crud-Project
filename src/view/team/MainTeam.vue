@@ -1,6 +1,6 @@
 <template>
-  <TeamSearchBar @search="performSearch" @refresh="refreshData" />
-  <TeamList :data="data" @dialogDelete="deleteData" />
+  <TeamSearchBar @search="handleSearch" @refresh="refreshData" />
+  <TeamList :searchQuery="searchQuery" @dialogDelete="deleteData" />
 </template>
 <script setup lang="ts">
 import TeamList from "./TeamList.vue";
@@ -10,37 +10,38 @@ import TeamSearchBar from "./TeamSearchBar.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-const data = ref([]);
-const fetchData = async () => {
-  await apiData.get(`/team`).then((res) => (data.value = res.data));
+
+const searchQuery = ref([]);
+
+const fetchDta = async () => {
+  await apiData.get("/team").then((res) => (searchQuery.value = res.data));
 };
 onMounted(() => {
-  fetchData();
+  fetchDta();
 });
-const deleteData = async (id: number) => {
-  await apiData
-    .delete(`/team/${id}`)
-    .then(() => {
-      fetchData();
-    })
-    .catch((error) => {
-      fetchData();
-      router.push("/team");
-      console.error(error);
-    });
-};
-const performSearch = async (search) => {
-  console.log("click", search);
+const handleSearch = async (query: string) => {
   try {
     await apiData
-      .get(`/team?q=${search as string}`)
-      .then((res) => (data.value = res.data));
+      .get(`/team?q=${query}`)
+      .then((res) => (searchQuery.value = res.data));
   } catch (error) {
     console.error(error);
   }
 };
+const deleteData = async (id: number) => {
+  await apiData
+    .delete(`/team/${id}`)
+    .then(() => {
+      fetchDta();
+    })
+    .catch((error) => {
+ 
+    
+      console.error(error);
+    });
+};
 const refreshData = () => {
-  data.value = [];
+  searchQuery.value = [];
   fetchData();
 };
 </script>

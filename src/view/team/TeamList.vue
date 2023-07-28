@@ -1,5 +1,5 @@
 <template>
-  <v-data-iterator :items="data">
+  <v-data-iterator :items="searchQuery">
     <template v-slot:default="{ items }">
       <v-row width="400px">
         <v-col cols="12" md="3" sm="12" v-for="item in data" :key="item.title">
@@ -106,7 +106,7 @@ import TeamPreview from "./TeamPreview.vue";
 import apiData from "../../plugins/apiData.ts";
 
 const { t } = useI18n();
-const prop = defineProps(["data"]);
+const prop = defineProps(["searchQuery"]);
 
 const router = useRouter();
 const route = useRoute();

@@ -9,7 +9,7 @@ import * as directives from "vuetify/directives";
 import { useI18n } from "vue-i18n";
 
 import { createVueI18nAdapter } from "vuetify/locale/adapters/vue-i18n";
-import i18n from "../i18n.ts";
+import i18n from "./i18n.ts";
 
 export default createVuetify({
   components: {

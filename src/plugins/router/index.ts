@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import ShowData from "../../components/ShowData.vue";
-import AddEdit from "../../components/AddEdit.vue";
-import Team from "../../components/Team.vue";
-import StaffsView from "../../components/StaffsView.vue";
+import ShowData from "../../view/staff/MainStaff.vue"
+import AddEdit from "../../view/staff/AddEdit.vue"
+import Team from '../../view/team/MainTeam.vue'
+import StaffsView from '../../view/staff/StaffsView.vue'
 
 const routes = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_UR),
