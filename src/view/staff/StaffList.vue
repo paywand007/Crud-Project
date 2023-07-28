@@ -66,7 +66,7 @@
             "
             color="green"
             >mdi-eye</v-icon
-          >
+          >s
         </td>
       </tr>
     </template>

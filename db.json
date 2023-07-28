@@ -1,139 +1,70 @@
 {
   "posts": [
     {
-      "id": 96,
-      "firstName": "Lenore",
-      "lastName": "Spencer",
-      "date": "2023-07-18 ",
-      "type": "Backend",
-      "status": false,
-      "description": " est tempor q"
+      "id": 92,
+      "firstName": "Fiona",
+      "lastName": "Mclaughlin",
+      "date": "22-Aug-1978",
+      "type": "Frontend",
+      "status": true,
+      "description": " e quammmmmmmmmmm"
     },
     {
-      "id": 69,
-      "firstName": "Kellie",
-      "lastName": "Mcclain",
-      "date": "2023-07-18T09:20:39.082Z",
-      "type": "Backend",
-      "status": false,
-      "description": "Beatae possimus aut"
-    },
-    {
-      "id": 17,
-      "firstName": "Judith",
-      "lastName": "Lee",
-      "date": "2023-07-18T09:21:06.897Z",
+      "id": 80,
+      "firstName": "Genevieve",
+      "lastName": "Burns",
+      "date": "10-Feb-2003",
       "type": "UX UI ",
-      "status": true,
-      "description": "Ullamco vero consequ"
-    },
-    {
-      "id": 90,
-      "firstName": "pamo",
-      "lastName": "Weeks",
-      "date": "2023-07-18T20:07:58.880Z",
-      "type": "Backend",
       "status": false,
-      "description": "Velit illum tenetur"
-    },
-    {
-      "id": 67,
-      "firstName": "Keiko",
-      "lastName": "Oneal",
-      "date": "2023-07-18T20:33:40.875Z",
-      "type": "Frontend",
-      "status": true,
-      "description": "Assumenda omnis natu"
-    },
-    {
-      "id": 83,
-      "firstName": "aaa",
-      "lastName": "aaaaaaaaaa",
-      "date": "2023-07-18T20:34:09.803Z",
-      "type": "Backend",
-      "status": true,
-      "description": "ddddddddddddd"
-    },
-    {
-      "id": 100,
-      "firstName": "Eleanor",
-      "lastName": "Mckinney",
-      "date": "2023-07-18T20:36:12.910Z",
-      "type": "Frontend",
-      "status": true,
-      "description": "Voluptatem ipsam do"
-    },
-    {
-      "id": 21,
-      "firstName": "Ignatius",
-      "lastName": "Barry",
-      "date": "24-Nov-2009",
-      "type": "Backend",
-      "status": true,
-      "description": "Reiciendis aut ex si"
-    },
-    {
-      "id": 46,
-      "firstName": "Uriah",
-      "lastName": "Dotson",
-      "date": "21-Nov-2014",
-      "type": "Backend",
-      "status": true,
-      "description": "Non sunt aut sapient"
-    },
-    {
-      "id": 61,
-      "firstName": "Teegan",
-      "lastName": "Fischer",
-      "date": "13-May-1996",
-      "type": "Backend",
-      "status": false,
-      "description": "Ipsum saepe et volup"
+      "description": "Sint sit rerum sint "
     },
     {
       "id": 38,
-      "firstName": "Daryl",
-      "lastName": "Miles",
-      "date": "01-Sep-1993",
-      "type": "QA ",
-      "status": false,
-      "description": "Quia voluptatem culp"
+      "firstName": "Risa",
+      "lastName": "Estrada",
+      "date": "24-Oct-2008",
+      "type": "Frontend",
+      "status": true,
+      "description": "Et commodo est repe"
     },
     {
-      "id": 31,
-      "firstName": "Ashely",
-      "lastName": "Stewart",
-      "date": "21-Jun-1973",
+      "id": 61,
+      "firstName": "Eric",
+      "lastName": "Key",
+      "date": "20-Mar-1994",
+      "type": "Frontend",
+      "status": true,
+      "description": "Voluptate eligendi e"
+    },
+    {
+      "id": 10,
+      "firstName": "asdf",
+      "lastName": "sdf",
+      "date": "dfxv",
+      "type": "Scrum Master",
+      "status": true,
+      "description": "sdfas"
+    },
+    {
+      "id": 7,
+      "firstName": "Ciara",
+      "lastName": "Michael",
+      "date": "11-Oct-1985",
       "type": "Backend",
-      "status": false,
-      "description": "Necessitatibus sed e"
+      "status": true,
+      "description": "Hic unde qui molliti"
     },
     {
-      "id": 75,
-      "firstName": "Hamish",
-      "lastName": "Carr",
-      "date": "12-Apr-1976",
+      "id": 47,
+      "firstName": "Avye",
+      "lastName": "Vaughn",
+      "date": "12-Feb-1998",
       "type": "Android",
-      "status": false,
-      "description": "Sit aut aut quisqua"
+      "status": true,
+      "description": "Non odit ut sint pra"
     }
   ],
   "team": [
-    {
-      "id": 64,
-      "img": "https://images.pexels.com/photos/2371936/pexels-photo-2371936.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "Frontend"
-    },
-    {
-      "id": 78,
-      "img": "https://images.pexels.com/photos/35857/amazing-beautiful-breathtaking-clouds.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "Backend"
-    },
-    {
-      "id": 8,
-      "img": "https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "Frontend"
-    },
     {
       "id": 82,
       "img": " https://images.pexels.com/photos/46253/mt-fuji-sea-of-clouds-sunrise-46253.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -142,27 +73,12 @@
     {
       "id": 95,
       "img": "https://images.pexels.com/photos/3848158/pexels-photo-3848158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "Android"
-    },
-    {
-      "id": 68,
-      "img": "https://images.pexels.com/photos/3848158/pexels-photo-3848158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "QA "
-    },
-    {
-      "id": 49,
-      "img": "https://images.pexels.com/photos/3848158/pexels-photo-3848158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "Frontend"
-    },
-    {
-      "id": 11,
-      "img": "https://images.pexels.com/photos/3848158/pexels-photo-3848158.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
       "type": "Scrum Master"
     },
     {
-      "id": 75,
-      "img": "https://images.pexels.com/photos/1072179/pexels-photo-1072179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      "type": "UX UI "
+      "id": 5,
+      "img": "sdfds",
+      "type": "Scrum Master"
     }
   ],
   "profile": {
