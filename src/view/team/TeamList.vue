@@ -116,7 +116,7 @@ const editDialog = ref(false);
 const previewDialog = ref(false);
 const openEditDialog = (id: number) => {
   editDialog.value = true;
-  router.push(`/team/${id}`);
+  router.push(`/team/addEdit/${id}`);
 };
 const itemsPerPageOptions = [3, 6, 9];
 const itemsPerPage = ref(itemsPerPageOptions[0]);
@@ -171,9 +171,6 @@ const prevPage = () => {
   }
 };
 
-const message = ref("hello");
-provide("message", message);
-
 const emit = defineEmits(["dialogDelete", "updateFn"]);
 const dialogDeleteOpen = (idItem: number) => {
   dialog.value = true;
@@ -192,14 +189,17 @@ const closePreview = () => {
   previewDialog.value = false;
   router.push("/team");
 };
-const deleteFn = () => {
+const deleteFn = async () => {
   dialog.value = false;
-  emit("dialogDelete", route.params.id);
-  router.push("/team");
+  await apiData.delete(`/team/${route.params.id}`).then(() => {
+    fetchData();
+    router.push("/team");
+  });
 };
+
 const fetchData = async () => {
   return await apiData
-    .get(`/team`, {
+    .get(`/team?q=${prop.data}`, {
       params: {
         _page: page.value,
         _limit: limit.value,
@@ -212,10 +212,10 @@ const fetchData = async () => {
     });
 };
 const refDats = (item) => {
-  if (item === true) fetchData();
-  return {};
+  data.value = item;
 };
 onMounted(() => {
   fetchData();
+  console.log("data prop", prop);
 });
 </script>

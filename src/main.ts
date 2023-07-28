@@ -3,7 +3,7 @@ import App from "./App.vue";
 import vuetify from "./plugins/vuetify";
 import "./plugins/veeValidate.ts";
 import routes from "./plugins/router";
-import i18n from "../src/plugins/i18n.ts";
+import i18n from "./plugins/i18n.ts";
 import { createPinia } from "pinia";
 
 const app = createApp(App);

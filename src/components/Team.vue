@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
-import apiData from "./apiData.ts";
+import apiData from "../plugins/apiData.ts";
 
 import { useField, useForm } from "vee-validate";
 import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-import i18n from "../i18n.ts";
-import AddEditTeam from "./team/AddEditTeam.vue";
+import i18n from "../plugins/i18n.ts";
 
 const { handleSubmit, resetForm, setValues } = useForm({
   validationSchema: {
@@ -99,6 +98,11 @@ const fetchData = async () => {
       const totalCount = parseInt(res.headers["x-total-count"]);
       totalPages.value = Math.ceil(totalCount / limit.value);
       data.value = res.data;
+
+      setValues({
+        img: data.img.value,
+        type: data.type.value,
+      });
     });
 };
 
@@ -361,7 +365,7 @@ const refreshData = () => {
                   <v-container>
                     <v-dialog
                       v-model="dialogVisible"
-                      width="500"
+                      width="auto"
                       :persistent="true"
                     >
                       <v-card>
@@ -428,37 +432,6 @@ const refreshData = () => {
           </v-card>
         </v-col>
       </v-row>
-    </template>
-    <template v-slot:footer>
-      <div class="d-flex align-center justify-space-around pa-4">
-        <v-menu>
-          <template v-slot:activator="{ props }">
-            <v-btn v-bind="props"> {{ t("itemPerPage") }} </v-btn>
-          </template>
-
-          <v-list>
-            <v-list-item v-for="(item, index) in items" :key="index + item.id">
-              <v-list-item-title
-                @click="item.changeItemsPerPage(item.value)"
-                style="cursor: pointer"
-                >{{ item.value }}</v-list-item-title
-              >
-            </v-list-item>
-          </v-list>
-        </v-menu>
-
-        <v-spacer></v-spacer>
-
-        <span class="mr-4 grey--text">
-          {{ t("pageof") }} {{ page }} {{ t("of") }} {{ numberOfPages }}
-        </span>
-        <v-btn icon size="small" @click="prevPage">
-          <v-icon>mdi-chevron-left</v-icon>
-        </v-btn>
-        <v-btn icon size="small" class="ml-2" @click="nextPage">
-          <v-icon>mdi-chevron-right</v-icon>
-        </v-btn>
-      </div>
     </template>
   </v-data-iterator>
 </template>

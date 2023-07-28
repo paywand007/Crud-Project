@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import apiData from "../../plugins/apiData.ts";
-import { inject, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { useForm, useField } from "vee-validate";
 import { useRoute, useRouter } from "vue-router";
 

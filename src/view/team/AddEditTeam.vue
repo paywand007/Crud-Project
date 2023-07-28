@@ -154,7 +154,7 @@ const addData = async () => {
     .then((res) => {
       deleteDialog();
       teamData.value = res.data;
-      emit("refreshData", refresh.value);
+
       router.push("/team");
     });
 };
