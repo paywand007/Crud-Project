@@ -96,7 +96,7 @@
   </v-data-iterator>
 </template>
 <script setup lang="ts">
-import { computed, onMounted, provide, ref } from "vue";
+import { computed, onMounted, provide, ref, watch } from "vue";
 
 import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
@@ -106,7 +106,7 @@ import TeamPreview from "./TeamPreview.vue";
 import apiData from "../../plugins/apiData.ts";
 
 const { t } = useI18n();
-const prop = defineProps(["searchQuery"]);
+const prop = defineProps(["data"]);
 
 const router = useRouter();
 const route = useRoute();
@@ -196,8 +196,21 @@ const deleteFn = async () => {
     router.push("/team");
   });
 };
-
 const fetchData = async () => {
+  return await apiData
+    .get(`/team?q=${prop.data.value}`, {
+      params: {
+        _page: page.value,
+        _limit: limit.value,
+      },
+    })
+    .then((res) => {
+      const totalCount = parseInt(res.headers["x-total-count"]);
+      totalPages.value = Math.ceil(totalCount / limit.value);
+      data.value = res.data;
+    });
+};
+const fetchD = async () => {
   return await apiData
     .get(`/team`, {
       params: {
@@ -211,10 +224,15 @@ const fetchData = async () => {
       data.value = res.data;
     });
 };
+onMounted(() => {
+  fetchD();
+  console.log("0");
+});
+
+watch(prop, () => {
+  if (prop.data.value) return fetchData();
+});
 const refDats = (item) => {
   data.value = item;
 };
-onMounted(() => {
-  fetchData();
-});
 </script>

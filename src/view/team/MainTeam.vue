@@ -12,6 +12,6 @@ const data = ref("");
 const handleSearch = (search: string) => {
   console.log("search", search);
   data.value = search;
-  console.log("search", data.value);
+  console.log("search", data.value.value);
 };
 </script>
