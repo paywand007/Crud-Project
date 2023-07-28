@@ -1,5 +1,5 @@
 <template>
-  <v-data-iterator :items="searchQuery">
+  <v-data-iterator :items="data">
     <template v-slot:default="{ items }">
       <v-row width="400px">
         <v-col cols="12" md="3" sm="12" v-for="item in data" :key="item.title">
@@ -199,7 +199,7 @@ const deleteFn = async () => {
 
 const fetchData = async () => {
   return await apiData
-    .get(`/team?q=${prop.data}`, {
+    .get(`/team`, {
       params: {
         _page: page.value,
         _limit: limit.value,
@@ -216,6 +216,5 @@ const refDats = (item) => {
 };
 onMounted(() => {
   fetchData();
-  console.log("data prop", prop);
 });
 </script>
