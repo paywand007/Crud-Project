@@ -1,29 +1,9 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import MainStaff from "../../view/staff/MainStaff.vue";
-import AddEdit from "../../view/staff/AddEdit.vue";
-
-import StaffsView from "../../view/staff/StaffsView.vue";
-import MainTeam from "../../view/team/MainTeam.vue";
-
-const routes = createRouter({
+import { createRouter, RouteRecordRaw, createWebHashHistory } from "vue-router";
+import StaffRouter from "./StaffRouter.ts";
+import TeamRouter from "./TeamRouter.ts";
+const routes: RouteRecordRaw[] = [...StaffRouter, ...TeamRouter];
+const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_UR),
-  routes: [
-    { path: "/:id?", component: MainStaff, name: "showdata" },
-    {
-      path: "/addEdit/:id?",
-      name: "edit",
-      component: AddEdit,
-    },
-    {
-      path: "/team/:id?",
-      name: "team",
-      component: MainTeam,
-    },
-    {
-      path: "/preview/:id",
-      name: "preview",
-      component: StaffsView,
-    },
-  ],
+  routes,
 });
-export default routes;
+export default router;
