@@ -40,7 +40,7 @@
                   <v-btn
                     color="pink-darken-4"
                     variant="text"
-                    @click="dialog = false"
+                    @click="cancele"
                     >{{ t("no") }}</v-btn
                   >
                   <v-btn
@@ -74,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, inject } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 
 import { useRouter, useRoute } from "vue-router";
@@ -90,18 +90,33 @@ const headers = ref([
   { title: t("status"), key: "status", sortable: false },
   { title: t("actions"), key: "actions", sortable: false },
 ]);
+
+// Set the props type using the 'Props' interface
+
 const props = defineProps(["searchQuery", "data"]);
 
 const emit = defineEmits(["dialogDelete"]);
 const dialog = ref(false);
-const dialogDeleteOpen = (idItem: number) => {
+const cancele = (): void => {
+  dialog.value = false;
+  router.push("/");
+};
+const dialogDeleteOpen = (idItem: number): void => {
   dialog.value = true;
   router.push(`/${idItem}`);
 };
-const deleteFn = () => {
+watch(dialog, (newVal): void => {
+  localStorage.setItem("dialog", newVal.toString());
+});
+const deleteFn = (): void => {
   emit("dialogDelete", route.params.id);
   dialog.value = false;
 };
+
+onMounted(() => {
+  const storedDialogVisible = localStorage.getItem("dialog");
+  if (storedDialogVisible === "true") dialog.value = true;
+});
 </script>
 
 <style scoped></style>

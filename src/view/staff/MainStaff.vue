@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import StaffList from "./StaffList.vue";
 import StaffSearchBar from "./StaffSearchBar.vue";
-import { onMounted, provide, ref } from "vue";
+import { onMounted, ref } from "vue";
 import apiData from "../../plugins/apiData.ts";
 
 const searchQuery = ref([]);

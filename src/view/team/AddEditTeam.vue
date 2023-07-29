@@ -57,7 +57,6 @@ import { useI18n } from "vue-i18n";
 import i18n from "../../plugins/i18n.ts";
 import apiData from "../../plugins/apiData.ts";
 import { provide, ref, watch } from "vue";
-import { useDataStore } from "../../store";
 
 const { handleSubmit, setValues } = useForm({
   validationSchema: {

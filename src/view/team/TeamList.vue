@@ -96,7 +96,7 @@
   </v-data-iterator>
 </template>
 <script setup lang="ts">
-import { computed, onMounted, provide, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 
 import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
@@ -111,12 +111,10 @@ const prop = defineProps(["data"]);
 const router = useRouter();
 const route = useRoute();
 const data = ref([]);
-const dialog = ref(false);
-const editDialog = ref(false);
-const previewDialog = ref(false);
+
 const openEditDialog = (id: number) => {
   editDialog.value = true;
-  router.push(`/team/addEdit/${id}`);
+  router.push(`/team/${id}`);
 };
 const itemsPerPageOptions = [3, 6, 9];
 const itemsPerPage = ref(itemsPerPageOptions[0]);
@@ -130,7 +128,7 @@ const items = ref([
     changeItemsPerPage: (option: number) => {
       page.value = 1;
       limit.value = option;
-      fetchData();
+      fetchD();
     },
   },
   {
@@ -139,7 +137,7 @@ const items = ref([
     changeItemsPerPage: (option: number) => {
       page.value = 1;
       limit.value = option;
-      fetchData();
+      fetchD();
     },
   },
   {
@@ -148,7 +146,7 @@ const items = ref([
     changeItemsPerPage: (option: number) => {
       page.value = 1;
       limit.value = option;
-      fetchData();
+      fetchD();
     },
   },
 ]);
@@ -160,24 +158,36 @@ const numberOfPages = computed(() => {
 const nextPage = () => {
   if (page.value < totalPages.value) {
     page.value++;
-    fetchData();
+    fetchD();
   }
 };
 
 const prevPage = () => {
   if (page.value > 1) {
     page.value--;
-    fetchData();
+    fetchD();
   }
 };
 
-const emit = defineEmits(["dialogDelete", "updateFn"]);
+const dialog = ref(false);
+const editDialog = ref(false);
+const previewDialog = ref(false);
 const dialogDeleteOpen = (idItem: number) => {
   dialog.value = true;
   router.push(`/team/${idItem}`);
 };
+watch(dialog, (newVal) => {
+  localStorage.setItem("dialog", newVal.toString());
+  fetchD();
+});
+watch(editDialog, (newVal) => {
+  localStorage.setItem("editDialog", newVal.toString());
+});
 
-const openPreview = (id) => {
+watch(previewDialog, (newVal) => {
+  localStorage.setItem("previewDialog", newVal.toString());
+});
+const openPreview = (id: number): void => {
   previewDialog.value = true;
   router.push(`/team/${id}`);
 };
@@ -192,7 +202,7 @@ const closePreview = () => {
 const deleteFn = async () => {
   dialog.value = false;
   await apiData.delete(`/team/${route.params.id}`).then(() => {
-    fetchData();
+    fetchD();
     router.push("/team");
   });
 };
@@ -226,11 +236,19 @@ const fetchD = async () => {
 };
 onMounted(() => {
   fetchD();
-  console.log("0");
+
+  const storedDialogVisible = localStorage.getItem("dialog");
+  const storedEADialogVisible = localStorage.getItem("editDialog");
+  const storePriview = localStorage.getItem("previewDialog");
+  if (storedDialogVisible === "true") {
+    dialog.value = true;
+  } else if (storedEADialogVisible === "true") editDialog.value = true;
+  else if (storePriview === "true") previewDialog.value = true;
 });
 
 watch(prop, () => {
   if (prop.data.value) return fetchData();
+  else fetchD();
 });
 const refDats = (item) => {
   data.value = item;

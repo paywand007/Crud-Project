@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { computed, ref } from "vue";
+import { computed } from "vue";
 
 const { locale, t } = useI18n();
 const storedLanguage = localStorage.getItem("selectedLanguage") ?? "en";

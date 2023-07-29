@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-
 import { useI18n } from "vue-i18n";
 import { useDataStore } from "../store";
 
 const { locale, t } = useI18n();
 const storedLanguage = localStorage.getItem("selectedLanguage") ?? "en";
 locale.value = storedLanguage;
-const drawer = ref(true);
+
 const store = useDataStore();
 </script>
 

@@ -1,12 +1,12 @@
 import { defineRule } from "vee-validate";
 
-defineRule("required", (value) => {
+defineRule("required", (value: string) => {
   if (!value || !value.length) {
     return "This field is required";
   }
   return true;
 });
-defineRule("email", (value) => {
+defineRule("email", (value: string) => {
   // Field is empty, should pass
   if (!value || !value.length) {
     return true;

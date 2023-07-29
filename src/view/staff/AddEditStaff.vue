@@ -5,40 +5,48 @@ import { useForm, useField } from "vee-validate";
 import { useRoute, useRouter } from "vue-router";
 
 import { useI18n } from "vue-i18n";
-
+interface Data {
+  // Define the type for your data object here.
+  status: boolean;
+  firstName: string;
+  lastName: string;
+  type: string;
+  description: string;
+  date: string;
+}
 const { t } = useI18n();
 const route = useRoute();
 const { id } = route.params;
 const { handleSubmit, setValues, resetForm } = useForm({
   validationSchema: {
-    fName(value) {
+    fName(value: string) {
       if (!value || !value.length) {
         return "This field is required";
       }
       return true;
     },
-    lName(value) {
+    lName(value: string) {
       if (!value || !value.length) {
         return "This field is required";
       }
       return true;
     },
-    typeData(value) {
-      if (!value || !value.length > 0) {
+    typeData(value: string) {
+      if (!value || !value.length) {
         return "This field is required";
       }
       return true;
     },
-    status(value) {
+    status(value: boolean) {
+      if (!value) return true;
+      return true;
+    },
+    description(value: string) {
       if (!value || !value.length) return true;
       return true;
     },
-    description(value) {
-      if (!value || !value.length) return true;
-      return true;
-    },
-    date(value) {
-      if (!value || !value.length > 0) {
+    date(value: string) {
+      if (!value || !value.length) {
         return "This field is required";
       }
       return true;
@@ -46,7 +54,7 @@ const { handleSubmit, setValues, resetForm } = useForm({
   },
 });
 const router = useRouter();
-const data = ref({});
+const data = ref<Data>({});
 const fName = useField<string>("fName");
 const lName = useField<string>("lName");
 const typeData = useField<string>("typeData");
@@ -55,7 +63,7 @@ const description = useField<string>("description");
 const date = useField<string>("date");
 
 const fetchData = async () => {
-  await apiData.get(`/posts/${id}`).then((res) => {
+  await apiData.get<Data>(`/posts/${id}`).then((res) => {
     data.value = res.data;
 
     setValues({
@@ -68,13 +76,12 @@ const fetchData = async () => {
     });
   });
 };
-// const { value: date, errorMessage: ereMsgDate } = useField<string>("date");
 onMounted(() => {
   id ? fetchData() : false;
 });
 const addData = async () => {
   await apiData
-    .post("/posts", {
+    .post<Data>("/posts", {
       id: Math.floor(Math.random() * 101),
       firstName: fName?.value.value,
       lastName: lName?.value.value,
@@ -92,7 +99,7 @@ const addData = async () => {
 };
 const updateData = async () => {
   await apiData
-    .patch(`/posts/${parseInt(id as string)}`, {
+    .patch<Data>(`/posts/${parseInt(id as string)}`, {
       firstName: fName?.value.value,
       lastName: lName?.value.value,
       type: typeData.value.value,

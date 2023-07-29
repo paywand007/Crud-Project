@@ -36,7 +36,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { RouterLink, useRouter } from "vue-router";
+import { RouterLink } from "vue-router";
 const emit = defineEmits(["search", "refresh"]);
 const { t } = useI18n();
 const searchRes = ref("");
@@ -48,7 +48,6 @@ const refreshData = () => {
 };
 
 const performSearch = () => {
-  // Emit a 'search' event with the current search query value
   emit("search", searchRes.value);
 };
 </script>

@@ -34,7 +34,6 @@
   </v-row>
 </template>
 <script setup lang="ts">
- 
 import { useI18n } from "vue-i18n";
 import { ref } from "vue";
 import AddEditTeam from "./AddEditTeam.vue";
@@ -55,7 +54,6 @@ const close = () => {
   router.push("/team");
 };
 const performSearch = () => {
-  // Emit a 'searchRes' event with the current search query value
   emit("search", searchRes);
 };
 </script>

@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { watch } from "vue";
 import apiData from "../../plugins/apiData.ts";
 import { useRoute } from "vue-router";
