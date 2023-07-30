@@ -1,6 +1,6 @@
 <template>
   <v-data-iterator :items="data">
-    <template v-slot:default="{ items }">
+    <template v-slot:default="">
       <v-row width="400px">
         <v-col cols="12" md="3" sm="12" v-for="item in data" :key="item.title">
           <v-card role="button">
@@ -43,7 +43,7 @@
                       <v-btn
                         color="pink-darken-4"
                         variant="text"
-                        @click="dialog = false"
+                        @click="cancel"
                         >{{ t("no") }}</v-btn
                       >
                       <v-btn
@@ -106,16 +106,12 @@ import TeamPreview from "./TeamPreview.vue";
 import apiData from "../../plugins/apiData.ts";
 
 const { t } = useI18n();
-const prop = defineProps(["data"]);
+const prop = defineProps(["data", "bolData"]);
 
 const router = useRouter();
 const route = useRoute();
 const data = ref([]);
 
-const openEditDialog = (id: number) => {
-  editDialog.value = true;
-  router.push(`/team/${id}`);
-};
 const itemsPerPageOptions = [3, 6, 9];
 const itemsPerPage = ref(itemsPerPageOptions[0]);
 const page = ref(1);
@@ -172,9 +168,19 @@ const prevPage = () => {
 const dialog = ref(false);
 const editDialog = ref(false);
 const previewDialog = ref(false);
+const openEditDialog = (id: number) => {
+  editDialog.value = true;
+  router.push(`/team/${id}`);
+};
+
 const dialogDeleteOpen = (idItem: number) => {
   dialog.value = true;
   router.push(`/team/${idItem}`);
+};
+const cancel = () => {
+  dialog.value = false;
+  refDats(false);
+  router.push("/team");
 };
 watch(dialog, (newVal) => {
   localStorage.setItem("dialog", newVal.toString());
@@ -194,6 +200,8 @@ const openPreview = (id: number): void => {
 const close = () => {
   editDialog.value = false;
   router.push("/team");
+
+  fetchD();
 };
 const closePreview = () => {
   previewDialog.value = false;
@@ -247,10 +255,20 @@ onMounted(() => {
 });
 
 watch(prop, () => {
-  if (prop.data.value) return fetchData();
+  if (prop.data) return fetchData();
   else fetchD();
 });
+watch(editDialog, () => {
+  if (previewDialog.value === false) return fetchD();
+});
+const comRes = ref(!prop.bolData);
+watch(prop, () => {
+  if (comRes.value === true) {
+    return fetchD();
+  }
+});
 const refDats = (item) => {
-  data.value = item;
+  if (data.value === item) fetchD();
+  fetchData();
 };
 </script>

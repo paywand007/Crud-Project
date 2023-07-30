@@ -21,12 +21,12 @@
         color="pink-darken-4"
         variant="elevated"
         size="large"
-        @click="openAddDialig = true"
+        @click="dialogAddOpen"
       >
         <p class="text-decoration-none text-white">
           {{ t("addTeam") }} <v-icon> mdi-account-plus</v-icon>
         </p>
-        <v-dialog v-model="openAddDialig">
+        <v-dialog v-model="openAddDialig" :persistent="true">
           <AddEditTeam @closeDialog="close" />
         </v-dialog>
       </v-btn>
@@ -35,25 +35,40 @@
 </template>
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import AddEditTeam from "./AddEditTeam.vue";
 import { useRouter } from "vue-router";
+import apiData from "../../plugins/apiData.ts";
 const router = useRouter();
-const emit = defineEmits(["search", "refresh", "dialogDelete"]);
+const emit = defineEmits(["search", "refresh", "dialogDelete", "add"]);
 const { t } = useI18n();
 const searchRes = ref("");
 const openAddDialig = ref(false);
+const dialogAddOpen = () => {
+  openAddDialig.value = true;
+};
 
+const data = ref([]);
 const refreshData = () => {
   searchRes.value = "";
-  //   fetchDta()  using props and emit  to perform the refresh
   emit("refresh", searchRes.value);
 };
+const addRes = ref(true);
 const close = () => {
   openAddDialig.value = false;
+  emit("add", addRes.value);
   router.push("/team");
+  addRes.value = false;
 };
 const performSearch = () => {
   emit("search", searchRes);
 };
+const fetchD = async () => [
+  await apiData.get("/team").then((res) => {
+    data.value = res.data;
+  }),
+];
+onMounted(() => {
+  fetchD();
+});
 </script>

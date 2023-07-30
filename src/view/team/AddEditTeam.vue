@@ -56,7 +56,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import i18n from "../../plugins/i18n.ts";
 import apiData from "../../plugins/apiData.ts";
-import { provide, ref, watch } from "vue";
+import { ref, watch } from "vue";
 
 const { handleSubmit, setValues } = useForm({
   validationSchema: {
@@ -86,26 +86,29 @@ const { value: typeData, errorMessage: errtypeData } = useField<string>(
 );
 const data = ref([]);
 
-const emit = defineEmits(["closeDialog", "updateData", "refreshData"]);
+const emit = defineEmits([
+  "closeDialog",
+  "updateData",
+  "refreshData",
+  "closeAddEdit",
+]);
 const dialog = ref(false);
 const deleteDialog = () => {
   emit("closeDialog", dialog.value);
 };
+
 const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
 
 const submit = handleSubmit(() => {
-  if (!parseInt(route?.params?.id)) {
+  if (!route?.params?.id) {
     addData();
   } else {
     patchData();
   }
-  console.log(img.value);
 });
-const fetchData = async () => {
-  await apiData.get(`/team`).then((res) => (data.value = res.data));
-};
+
 const updateDataFetch = async () => {
   await apiData.get(`/team/${route.params.id}`).then((res) => {
     data.value = res.data;
@@ -123,25 +126,16 @@ const patchData = async () => {
     })
     .then(() => {
       deleteDialog();
-      fetchData();
+      emit("refreshData", false);
       router.push("/team");
     });
 };
-const location = ref("North Pole");
 
-function updateLocation() {
-  location.value = "South Pole";
-}
-
-provide("location", {
-  location,
-  updateLocation,
-});
 watch(route, () => {
   if (route.params.id) return updateDataFetch();
   return {};
 });
-const refresh = ref(false);
+const f = ref(false);
 const teamData = ref([]);
 const addData = async () => {
   await apiData
@@ -152,10 +146,8 @@ const addData = async () => {
     })
     .then((res) => {
       deleteDialog();
+      emit("refreshData", f.value);
       teamData.value = res.data;
-
-      router.push("/team");
     });
 };
-// const { location, updateLocation } = inject("location");
 </script>
