@@ -13,9 +13,7 @@ const handleSearch = (search: string) => {
   data.value = search;
 };
 const handl = (val) => {
-  console.log(bolData.value, val);
   bolData.value = val;
-  console.log(bolData.value, val);
 };
 const refreshData = () => {
   data.value = "";

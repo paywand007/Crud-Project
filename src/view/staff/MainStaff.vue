@@ -4,7 +4,7 @@
     <StaffSearchBar @search="handleSearch" @refresh="refreshData" />
 
     <!--   StaffList component  -->
-    <StaffList :search-query="searchQuery" @dialogDelete="deleteData" />
+    <StaffList :search-query="data" @dialogDelete="deleteData" />
   </div>
 </template>
 
@@ -14,10 +14,10 @@ import StaffSearchBar from "./StaffSearchBar.vue";
 import { onMounted, ref } from "vue";
 import apiData from "../../plugins/apiData.ts";
 
-const searchQuery = ref([]);
+const data = ref([]);
 
 const fetchDta = async () => {
-  await apiData.get("/posts").then((res) => (searchQuery.value = res.data));
+  await apiData.get("/posts").then((res) => (data.value = res.data));
 };
 onMounted(() => {
   fetchDta();
@@ -26,7 +26,7 @@ const handleSearch = async (query: string) => {
   try {
     await apiData
       .get(`/posts?q=${query}`)
-      .then((res) => (searchQuery.value = res.data));
+      .then((res) => (data.value = res.data));
   } catch (error) {
     console.error(error);
   }
@@ -42,7 +42,7 @@ const deleteData = async (id: number) => {
     });
 };
 const refreshData = () => {
-  searchQuery.value = "";
+  data.value = "";
   fetchDta();
 };
 </script>
