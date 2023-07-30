@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import vuetify from "./plugins/vuetify";
 import "./plugins/veeValidate.ts";
-import router from "./plugins/router/index.ts";
+import router from "./router.ts";
 import i18n from "./plugins/i18n.ts";
 import { createPinia } from "pinia";
 

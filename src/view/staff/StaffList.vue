@@ -118,5 +118,3 @@ onMounted(() => {
   if (storedDialogVisible === "true") dialog.value = true;
 });
 </script>
-
-<style scoped></style>

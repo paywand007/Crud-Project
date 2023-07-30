@@ -29,5 +29,3 @@ const storedLanguage = localStorage.getItem("selectedLanguage") ?? "en";
 locale.value = storedLanguage;
 const drawer = ref(true);
 </script>
-
-<style scoped></style>

@@ -51,5 +51,3 @@ const performSearch = () => {
   emit("search", searchRes.value);
 };
 </script>
-
-<style scoped></style>

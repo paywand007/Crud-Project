@@ -5,6 +5,7 @@ import { useForm, useField } from "vee-validate";
 import { useRoute, useRouter } from "vue-router";
 
 import { useI18n } from "vue-i18n";
+import i18n from "../../plugins/i18n.ts";
 interface Data {
   // Define the type for your data object here.
   status: boolean;
@@ -21,19 +22,19 @@ const { handleSubmit, setValues, resetForm } = useForm({
   validationSchema: {
     fName(value: string) {
       if (!value || !value.length) {
-        return "This field is required";
+        return i18n.global.t("require");
       }
       return true;
     },
     lName(value: string) {
       if (!value || !value.length) {
-        return "This field is required";
+        return i18n.global.t("require");
       }
       return true;
     },
     typeData(value: string) {
       if (!value || !value.length) {
-        return "This field is required";
+        return i18n.global.t("require");
       }
       return true;
     },
@@ -47,7 +48,7 @@ const { handleSubmit, setValues, resetForm } = useForm({
     },
     date(value: string) {
       if (!value || !value.length) {
-        return "This field is required";
+        return i18n.global.t("require");
       }
       return true;
     },
@@ -93,7 +94,7 @@ const addData = async () => {
     .then((res) => {
       fetchData();
       data.value = res.data;
-      console.log("added");
+
       router.back();
     });
 };
