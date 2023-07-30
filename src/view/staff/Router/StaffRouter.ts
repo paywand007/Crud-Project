@@ -1,9 +1,8 @@
-// src/router/StaffRoute.ts
 import { RouteRecordRaw } from "vue-router";
-import MainStaff from "../../view/staff/MainStaff.vue";
-import AddEdit from "../../view/staff/AddEditStaff.vue";
+import MainStaff from "../MainStaff.vue";
+import AddEdit from "../AddEditStaff.vue";
 
-import StaffsView from "../../view/staff/StaffsView.vue";
+import StaffsView from "../StaffsView.vue";
 
 const staffRoutes: RouteRecordRaw[] = [
   { path: "/:id?", component: MainStaff, name: "MainStaff" },

@@ -1,6 +1,6 @@
 // src/router/StaffRoute.ts
 import { RouteRecordRaw } from "vue-router";
-import MainTeam from "../../view/team/MainTeam.vue";
+import MainTeam from "../MainTeam.vue";
 
 const staffRoutes: RouteRecordRaw[] = [
   {
