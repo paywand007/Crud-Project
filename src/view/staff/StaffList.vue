@@ -30,19 +30,16 @@
               mdi-delete
             </v-icon>
 
-            <v-dialog v-model="dialog" max-width="500px" :persistent="true">
+            <v-dialog v-model="dialog" max-width="500px" persistent>
               <v-card>
                 <v-card-title class="text-h5">{{
                   t("sueDelete")
                 }}</v-card-title>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn
-                    color="pink-darken-4"
-                    variant="text"
-                    @click="cancele"
-                    >{{ t("no") }}</v-btn
-                  >
+                  <v-btn color="pink-darken-4" variant="text" @click="cancel">{{
+                    t("no")
+                  }}</v-btn>
                   <v-btn
                     color="green-darken-4"
                     variant="text"
@@ -97,7 +94,7 @@ const props = defineProps(["searchQuery", "data"]);
 
 const emit = defineEmits(["dialogDelete"]);
 const dialog = ref(false);
-const cancele = (): void => {
+const cancel = (): void => {
   dialog.value = false;
   router.push("/");
 };
@@ -118,3 +115,16 @@ onMounted(() => {
   if (storedDialogVisible === "true") dialog.value = true;
 });
 </script>
+<style>
+.v-overlay__scrim {
+  pointer-events: auto;
+  background: none;
+  border-radius: inherit;
+  bottom: 0;
+  left: 0;
+  opacity: 0.32;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+</style>
